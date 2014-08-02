@@ -8,6 +8,8 @@
 using std::vector;
 using std::string;
 
+using exceptions::IllegalMoveException;
+
 class Screen
 {
 private:
@@ -18,6 +20,7 @@ private:
 	string name;
 	string text;
 	EnemyProperties *enemyProperties;
+	bool mInitialTextShown;
 
 	sf_hashmap moveBehaviours;
 
@@ -29,8 +32,8 @@ public:
 	string getText();
 
 	vector<string> getAllowedMoves();
-
 	EnemyProperties *getEnemyProperties();
+	bool initialTextShown();
 
 	void defineMoveBehaviour(string move, std::function<void()> func);
 

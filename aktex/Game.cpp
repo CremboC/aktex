@@ -27,16 +27,29 @@ void Game::start()
 {
 	while (true)
 	{
-		io::puts(screen()->getText());
-
-		screen()->doMove("exit");
-
-		if (state->getCurrentState() == GameState::ENDED)
-		{
-			io::puts("ENDED!");
-		}
+		if (!screen()->initialTextShown())
+			io::puts(screen()->getText());
 
 		string inp = io::strInput();
+
+		try
+		{
+			screen()->doMove(inp);
+		}
+		catch (exceptions::IllegalMoveException *e)
+		{
+			io::print("Move does not exist, try one of the possible commands: ");
+
+			for (auto a : screen()->getAllowedMoves())
+			{
+				io::print(a + " ");
+			}
+
+			io::puts("");
+		}
+
+		if (state->getCurrentState() == GameState::ENDED)
+			handleExit();
 	}
 }
 
@@ -44,4 +57,11 @@ void Game::start()
 Screen *Game::screen()
 {
 	return this->state->getCurrentScreen();
+}
+
+// handles what happens when the gamestate becomes ENDED
+void Game::handleExit()
+{
+	// TODO: add more stuff that gets done, save game state maybe?
+	std::exit(1);
 }

@@ -15,5 +15,6 @@
 #include "types.h"
 #include "structs.h"
 #include "enums.h"
+#include "exceptions.h"
 
 #define SCR_WIDTH 80

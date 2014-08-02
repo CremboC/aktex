@@ -20,6 +20,9 @@ private:
 	// convenience wrapper method for this->state->getCurrentScreen()
 	Screen *screen();
 
+	// handles what happens when the gamestate becomes ENDED
+	void handleExit();
+
 public:
 	Game();
 	~Game();
