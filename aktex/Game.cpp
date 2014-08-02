@@ -2,12 +2,7 @@
 
 #include "Game.h"
 
-#include "Screen.h"
-#include "Screens.h"
-#include "EnemyProperties.h"
 #include "io.h"
-
-#include "State.h"
 
 using std::string;
 using std::pair;

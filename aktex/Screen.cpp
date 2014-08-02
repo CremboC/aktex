@@ -1,10 +1,6 @@
 #include "stdafx.h"
 
-#include <functional>
-
 #include "Screen.h"
-
-#include "EnemyProperties.h"
 
 Screen::Screen(string name, string text, vector<string> allowedMoves, EnemyProperties *properties)
 {

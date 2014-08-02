@@ -2,7 +2,6 @@
 
 #include "Entity.h"
 #include "Inventory.h"
-#include "Screen.h"
 
 class Player :
 	public Entity

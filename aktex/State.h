@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Player.h"
+#include "Screen.h"
 
 using enums::GameState;
 

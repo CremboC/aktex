@@ -1,11 +1,6 @@
 #include "stdafx.h"
+
 #include "Screens.h"
-
-#include "Screen.h"
-#include "EnemyProperties.h"
-#include "Item.h"
-
-#include "State.h"
 
 using std::pair;
 
@@ -50,12 +45,19 @@ Screen *Screens::start()
 {
 	vector<Item *> items = { new Item() };
 
-	EnemyProperties *startEProps = new EnemyProperties;
-	startEProps
+	EnemyProperties *eProps = new EnemyProperties;
+	eProps
 		->hpRange(pair < int, int > {80, 100})
 		->possibleDrops(1)
 		->dropLikelyhood(0.5f)
 		->items(items);
 
-	return NULL;
+	Screen *main = new Screen(
+		"first",
+		"Dis da' first game screen, wassup y'all. \n",
+		{ "start", "exit", "options" },
+		eProps
+		);
+
+	return main;
 }
