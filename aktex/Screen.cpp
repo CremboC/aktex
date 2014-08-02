@@ -33,3 +33,9 @@ EnemyProperties *Screen::getEnemyProperties()
 {
 	return this->enemyProperties;
 }
+
+template<typename F>
+void Screen::defineMoveBehaviour(string move, F func)
+{
+	this->defineMoveBehaviours[move] = func;
+}

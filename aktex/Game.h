@@ -1,8 +1,5 @@
 #pragma once
 
-#include <vector>
-#include <unordered_map>
-
 #include "Screen.h"
 #include "Player.h"
 
@@ -12,7 +9,7 @@ using std::string;
 class Game
 {
 private:
-	typedef std::unordered_map<string, Screen *> ss_hashmap;
+	typedef unordered_map<string, Screen *> ss_hashmap;
 
 	ss_hashmap availableScreens;
 	Player player;

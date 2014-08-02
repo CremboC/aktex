@@ -3,7 +3,7 @@
 #include "Entity.h"
 
 class Enemy
-	: Entity
+	: public Entity
 {
 public:
 	Enemy();

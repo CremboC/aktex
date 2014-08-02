@@ -34,7 +34,7 @@ EnemyProperties *EnemyProperties::dropLikelyhood(float dropLikelyhood)
 }
 
 // what items the enemy can drop
-EnemyProperties *EnemyProperties::items(vector<Item> *items)
+EnemyProperties *EnemyProperties::items(vector<Item *> items)
 {
 	this->mItems = items;
 	return this;

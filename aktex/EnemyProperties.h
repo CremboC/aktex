@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include "Item.h"
 
 using std::pair;
 using std::vector;
@@ -21,11 +21,11 @@ public:
 	EnemyProperties *dropLikelyhood(float dropLikelyhood);
 
 	// what items the enemy can drop
-	EnemyProperties *items(vector<Item> *items);
+	EnemyProperties *items(vector<Item *> items);
 
 private:
 	pair<int, int> mHpRange;
 	float mDropLikelyhood;
 	int numberOfPossibleDrops;
-	vector<Item> mItems;
+	vector<Item *> mItems;
 };

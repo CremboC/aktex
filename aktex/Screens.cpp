@@ -3,6 +3,7 @@
 
 #include "Screen.h"
 #include "EnemyProperties.h"
+#include "Item.h"
 
 using std::pair;
 
@@ -23,6 +24,10 @@ Screen *Screens::main()
 		{ "start", "exit", "options" },
 		nullptr
 		);
+
+	main->defineMoveBehaviour("start", []
+	{
+	});
 
 	return main;
 }

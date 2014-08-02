@@ -12,7 +12,7 @@ using std::pair;
 
 Game::Game()
 {
-	availableScreens.insert("main", Screens::main());
+	availableScreens["main"] = Screens::main();
 
 	start(availableScreens["main"]);
 }
