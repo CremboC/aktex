@@ -79,15 +79,39 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyProperties.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="Screens.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="structs.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="io.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aktex.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyProperties.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="Screens.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="io.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

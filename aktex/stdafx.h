@@ -10,6 +10,9 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <string>
 
+#include "types.h"
+#include "structs.h"
 
-// TODO: reference additional headers your program requires here
+#define SCR_WIDTH 80
