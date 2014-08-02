@@ -1,4 +1,8 @@
 #include "stdafx.h"
+
+#include <functional>
+#include <iostream>
+
 #include "Screen.h"
 
 #include "EnemyProperties.h"
@@ -34,8 +38,18 @@ EnemyProperties *Screen::getEnemyProperties()
 	return this->enemyProperties;
 }
 
-template<typename F>
-void Screen::defineMoveBehaviour(string move, F func)
+void Screen::defineMoveBehaviour(string move, std::function<void()> func)
 {
-	this->defineMoveBehaviours[move] = func;
+	moveBehaviours[move] = func;
+}
+
+void Screen::doMove(string move)
+{
+	auto fMove = moveBehaviours[move];
+
+	fMove();
+
+	if (true)
+	{
+	}
 }

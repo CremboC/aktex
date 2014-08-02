@@ -1,16 +1,20 @@
 #pragma once
 
 #include "Screen.h"
+#include "State.h"
 
 class Screens
 {
+private:
+	State *state;
+
 public:
-	Screens();
+	Screens(State *state);
 	~Screens();
 
 	// returns the start screen
-	static Screen *main();
+	Screen *main();
 
 	// the first game screen
-	static Screen *start();
+	Screen *start();
 };

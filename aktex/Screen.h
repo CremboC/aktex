@@ -7,22 +7,19 @@
 
 using std::vector;
 using std::string;
-using std::unordered_map;
 
 class Screen
 {
 private:
 	// a hashmap for strings and stored functions
-	typedef unordered_map<string, std::function<void(int)>> sf_hashmap;
-
-	typedef unordered_map<string, Screen *> ss_hashmap;
+	typedef std::unordered_map<string, std::function<void()>> sf_hashmap;
 
 	vector<string> allowedMoves;
 	string name;
 	string text;
 	EnemyProperties *enemyProperties;
 
-	sf_hashmap defineMoveBehaviours;
+	sf_hashmap moveBehaviours;
 
 public:
 	Screen(string name, string text, vector<string> allowedMoves, EnemyProperties *eProperties);
@@ -35,6 +32,7 @@ public:
 
 	EnemyProperties *getEnemyProperties();
 
-	template<typename F>
-	void defineMoveBehaviour(string move, F func);
+	void defineMoveBehaviour(string move, std::function<void()> func);
+
+	void doMove(string move);
 };

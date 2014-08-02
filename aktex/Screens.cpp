@@ -5,10 +5,16 @@
 #include "EnemyProperties.h"
 #include "Item.h"
 
+#include "State.h"
+
 using std::pair;
 
-Screens::Screens()
-{}
+using enums::GameState;
+
+Screens::Screens(State *state)
+{
+	this->state = state;
+}
 
 Screens::~Screens()
 {}
@@ -25,8 +31,15 @@ Screen *Screens::main()
 		nullptr
 		);
 
-	main->defineMoveBehaviour("start", []
+	State *state = this->state;
+
+	main->defineMoveBehaviour("start", [state]
 	{
+	});
+
+	main->defineMoveBehaviour("exit", [state]
+	{
+		state->setState(GameState::ENDED);
 	});
 
 	return main;

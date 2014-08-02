@@ -1,7 +1,8 @@
 #pragma once
 
+#include "Screens.h"
 #include "Screen.h"
-#include "Player.h"
+#include "State.h"
 
 using std::unordered_map;
 using std::string;
@@ -12,11 +13,17 @@ private:
 	typedef unordered_map<string, Screen *> ss_hashmap;
 
 	ss_hashmap availableScreens;
-	Player player;
+
+	State *state;
+	Screens *screens;
+
+	// convenience wrapper method for this->state->getCurrentScreen()
+	Screen *screen();
 
 public:
 	Game();
 	~Game();
 
-	void start(Screen *initialScreen);
+	// contains main loop
+	void start();
 };

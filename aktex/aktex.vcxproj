@@ -82,6 +82,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyProperties.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="enums.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
