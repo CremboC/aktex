@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include <functional>
-#include <iostream>
 
 #include "Screen.h"
 
