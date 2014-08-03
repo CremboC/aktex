@@ -8,34 +8,43 @@
 using std::vector;
 using std::string;
 
-using exceptions::IllegalMoveException;
+using enums::Directions;
+
+using types::HashMap;
+using types::Func;
 
 class Screen
 {
 private:
-	// a hashmap for strings and stored functions
-	typedef std::unordered_map<string, std::function<void()>> sf_hashmap;
-
 	vector<string> allowedMoves;
 	string name;
 	string text;
 	EnemyProperties *enemyProperties;
+	vector<Directions> directions;
+
 	bool mInitialTextShown;
 
-	sf_hashmap moveBehaviours;
+	HashMap<string, Func<void>> moveBehaviours;
 
 public:
-	Screen(string name, string text, vector<string> allowedMoves, EnemyProperties *eProperties);
+	Screen();
 	~Screen();
+
+	Screen *setName(string name);
+	Screen *setText(string text);
+	Screen *setAllowedMoves(vector<string> allowedMoves);
+	Screen *setEnemyProperties(EnemyProperties *eProps);
+	Screen *setDirections(vector<Directions> directions);
 
 	string getName();
 	string getText();
 
 	vector<string> getAllowedMoves();
 	EnemyProperties *getEnemyProperties();
+
 	bool initialTextShown();
 
-	void defineMoveBehaviour(string move, std::function<void()> func);
+	void defineMoveBehaviour(string move, Func<void> func);
 
 	void doMove(string move);
 };

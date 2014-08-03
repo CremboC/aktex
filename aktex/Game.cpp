@@ -7,6 +7,8 @@
 using std::string;
 using std::pair;
 
+using exceptions::IllegalMoveException;
+
 Game::Game()
 {
 	this->state = new State;
@@ -36,8 +38,10 @@ void Game::start()
 		{
 			screen()->doMove(inp);
 		}
-		catch (exceptions::IllegalMoveException *e)
+		catch (IllegalMoveException *e)
 		{
+			e->getMessage();
+
 			io::print("Move does not exist, try one of the possible commands: ");
 
 			for (auto a : screen()->getAllowedMoves())

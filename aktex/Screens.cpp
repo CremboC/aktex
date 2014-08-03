@@ -17,27 +17,28 @@ Screens::~Screens()
 // returns the start screen
 Screen *Screens::main()
 {
-	Screen *main = new Screen(
-		"menu",
+	Screen *scr = new Screen;
+
+	scr->setName("menu")
+		->setText(
 		"Welcome to Aktex. The adventure action text game. \n"
 		"To start the game type in start and press enter! \n"
-		"Also try 'options' for options or 'exit' to exit the game \n",
-		{ "start", "exit", "options" },
-		nullptr
-		);
+		"Also try 'options' for options or 'exit' to exit the game \n")
+		->setAllowedMoves({ "start", "exit", "options" })
+		->setEnemyProperties(nullptr);
 
-	State *state = this->state;
-
-	main->defineMoveBehaviour("start", [state]
+	scr->defineMoveBehaviour("start", [this]
 	{
+		state->setState(GameState::PLAYING);
+		state->setScreen(start());
 	});
 
-	main->defineMoveBehaviour("exit", [state]
+	scr->defineMoveBehaviour("exit", [this]
 	{
 		state->setState(GameState::ENDED);
 	});
 
-	return main;
+	return scr;
 }
 
 // the first game screen
@@ -52,12 +53,19 @@ Screen *Screens::start()
 		->dropLikelyhood(0.5f)
 		->items(items);
 
-	Screen *main = new Screen(
-		"first",
-		"Dis da' first game screen, wassup y'all. \n",
-		{ "start", "exit", "options" },
-		eProps
-		);
+	Screen *scr = new Screen;
 
-	return main;
+	scr->setName("first")
+		->setText(
+		"Dis da' first game screen, wassup y'all. \n"
+		"Youse in room, youse see door north of you. What you do?")
+		->setAllowedMoves({ "go {}", "exit" })
+		->setEnemyProperties(eProps);
+
+	return scr;
+}
+
+Screen *Screens::generateRoom()
+{
+	return nullptr;
 }

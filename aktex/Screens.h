@@ -17,4 +17,7 @@ public:
 
 	// the first game screen
 	Screen *start();
+
+	// generates randomly a room
+	Screen *generateRoom();
 };

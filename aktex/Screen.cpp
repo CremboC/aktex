@@ -4,21 +4,42 @@
 
 using exceptions::IllegalMoveException;
 
-Screen::Screen(string name, string text, vector<string> allowedMoves, EnemyProperties *properties)
+Screen::Screen()
 {
-	this->name = name;
-	this->text = text;
-	this->allowedMoves = allowedMoves;
-	this->enemyProperties = properties;
 	this->mInitialTextShown = false;
 }
 
 Screen::~Screen()
 {}
 
-string Screen::getName()
+Screen *Screen::setName(string name)
 {
-	return this->name;
+	this->name = name;
+	return this;
+}
+
+Screen *Screen::setText(string text)
+{
+	this->text = text;
+	return this;
+}
+
+Screen *Screen::setAllowedMoves(vector<string> allowedMoves)
+{
+	this->allowedMoves = allowedMoves;
+	return this;
+}
+
+Screen *Screen::setEnemyProperties(EnemyProperties *eProps)
+{
+	this->enemyProperties = eProps;
+	return this;
+}
+
+Screen *Screen::setDirections(vector<Directions> directions)
+{
+	this->directions = directions;
+	return this;
 }
 
 string Screen::getText()
@@ -42,7 +63,7 @@ bool Screen::initialTextShown()
 	return mInitialTextShown;
 }
 
-void Screen::defineMoveBehaviour(string move, std::function<void()> func)
+void Screen::defineMoveBehaviour(string move, Func<void> func)
 {
 	moveBehaviours[move] = func;
 }
