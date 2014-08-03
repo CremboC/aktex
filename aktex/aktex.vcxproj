@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="consts.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyProperties.h" />
     <ClInclude Include="Entity.h" />

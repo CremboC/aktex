@@ -2,13 +2,13 @@
 
 #include <functional>
 
-#include "Enemy.h"
 #include "EnemyProperties.h"
+#include "Spawnable.h"
 
 using std::vector;
 using std::string;
 
-using enums::Directions;
+using enums::Direction;
 
 using types::HashMap;
 using types::Func;
@@ -20,7 +20,8 @@ private:
 	string name;
 	string text;
 	EnemyProperties *enemyProperties;
-	vector<Directions> directions;
+
+	HashMap<Direction, Spawnable> spawnableLocations;
 
 	bool mInitialTextShown;
 
@@ -34,7 +35,6 @@ public:
 	Screen *setText(string text);
 	Screen *setAllowedMoves(vector<string> allowedMoves);
 	Screen *setEnemyProperties(EnemyProperties *eProps);
-	Screen *setDirections(vector<Directions> directions);
 
 	string getName();
 	string getText();
@@ -45,6 +45,7 @@ public:
 	bool initialTextShown();
 
 	void defineMoveBehaviour(string move, Func<void> func);
-
 	void doMove(string move);
+
+	void putSpawnable(Direction d, Spawnable s);
 };

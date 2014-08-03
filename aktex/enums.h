@@ -1,7 +1,5 @@
 #pragma once
 
-using std::string;
-
 namespace enums
 {
 	enum class GameState
@@ -12,7 +10,7 @@ namespace enums
 		ENDED
 	};
 
-	enum class Directions
+	enum class Direction
 	{
 		N,
 		NE,

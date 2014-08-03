@@ -36,12 +36,6 @@ Screen *Screen::setEnemyProperties(EnemyProperties *eProps)
 	return this;
 }
 
-Screen *Screen::setDirections(vector<Directions> directions)
-{
-	this->directions = directions;
-	return this;
-}
-
 string Screen::getText()
 {
 	mInitialTextShown = true;
@@ -82,4 +76,9 @@ void Screen::doMove(string move)
 	auto fMove = moveBehaviours[move];
 
 	fMove();
+}
+
+void Screen::putSpawnable(Direction d, Spawnable s)
+{
+	spawnableLocations[d] = s;
 }
