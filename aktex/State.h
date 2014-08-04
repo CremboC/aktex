@@ -5,6 +5,8 @@
 
 using enums::GameState;
 
+using types::Vec;
+
 class State
 {
 private:
@@ -13,6 +15,8 @@ private:
 
 	GameState currentState;
 
+	Vec<Spawnable *> spawnables;
+
 public:
 	State();
 	~State();
@@ -20,7 +24,13 @@ public:
 	Player *getPlayer();
 	Screen *getCurrentScreen();
 	GameState getCurrentState();
+	Vec<Spawnable *> getSpawnables();
 
 	void setState(GameState newState);
 	void setScreen(Screen *screen);
+
+	void registerSpawnable(Spawnable *spawnable);
+
+	template<class... T>
+	void registerSpawnables(T *... args);
 };

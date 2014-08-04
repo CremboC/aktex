@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Game.h"
+#include "LootBox.h"
 
 #include "io.h"
 
@@ -11,8 +12,7 @@ using exceptions::IllegalMoveException;
 
 Game::Game()
 {
-	this->state = new State;
-	this->screens = new Screens(state);
+	loadSpawnables();
 
 	availableScreens["main"] = screens->main();
 
@@ -68,4 +68,12 @@ void Game::handleExit()
 {
 	// TODO: add more stuff that gets done, save game state maybe?
 	std::exit(1);
+}
+
+// loads all the spawnable prototypes
+void Game::loadSpawnables()
+{
+	Spawnable * lootBox = new LootBox();
+
+	state->registerSpawnables(lootBox, lootBox);
 }

@@ -4,8 +4,8 @@
 #include <functional>
 
 using std::function;
-
 using std::unordered_map;
+using std::vector;
 
 namespace types
 {
@@ -14,4 +14,7 @@ namespace types
 
 	template<class K, class... V>
 	using Func = function < K(V...) > ;
+
+	template<class K>
+	using Vec = vector < K > ;
 }

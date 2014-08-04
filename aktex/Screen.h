@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-
 #include "EnemyProperties.h"
 #include "Spawnable.h"
 
@@ -21,11 +19,13 @@ private:
 	string text;
 	EnemyProperties *enemyProperties;
 
-	HashMap<Direction, Spawnable> spawnableLocations;
+	HashMap<Direction, Spawnable *> spawnableLocations;
 
 	bool mInitialTextShown;
 
 	HashMap<string, Func<void>> moveBehaviours;
+
+	void putSpawnable(Direction d, Spawnable *s);
 
 public:
 	Screen();
@@ -46,6 +46,4 @@ public:
 
 	void defineMoveBehaviour(string move, Func<void> func);
 	void doMove(string move);
-
-	void putSpawnable(Direction d, Spawnable s);
 };

@@ -6,3 +6,8 @@ Spawnable::Spawnable()
 
 Spawnable::~Spawnable()
 {}
+
+string Spawnable::text()
+{
+	return this->mText;
+}

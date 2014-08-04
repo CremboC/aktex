@@ -14,14 +14,17 @@ private:
 
 	ss_hashmap availableScreens;
 
-	State *state;
-	Screens *screens;
+	State * state = new State;
+	Screens * screens = new Screens(state);
 
 	// convenience wrapper method for this->state->getCurrentScreen()
 	Screen *screen();
 
 	// handles what happens when the gamestate becomes ENDED
 	void handleExit();
+
+	// loads all the spawnable prototypes
+	void loadSpawnables();
 
 public:
 	Game();

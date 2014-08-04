@@ -1,6 +1,10 @@
 #include "stdafx.h"
 
+#include <cstdarg>
+
 #include "State.h"
+
+#include "io.h"
 
 State::State()
 {
@@ -34,4 +38,17 @@ void State::setState(GameState newState)
 void State::setScreen(Screen *screen)
 {
 	this->currentScreen = screen;
+}
+
+void State::registerSpawnable(Spawnable *spawnable)
+{
+	spawnables.push_back(spawnable);
+}
+
+template<class... T>
+void State::registerSpawnables(T *... args)
+{
+	io::puts(sizeof...(args));
+
+	spawnables.push_back(spawnable);
 }

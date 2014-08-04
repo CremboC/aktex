@@ -4,13 +4,39 @@
 
 using exceptions::IllegalMoveException;
 
+using enums::Direction;
+
+using consts::directionsMap;
+
 Screen::Screen()
 {
 	this->mInitialTextShown = false;
+
+	// initialise spawnables
+	for (auto it = directionsMap.begin(); it != directionsMap.end(); ++it)
+	{
+		string name = it->first;
+		Direction dir = it->second;
+
+		putSpawnable(dir, nullptr);
+	}
 }
 
 Screen::~Screen()
 {}
+
+void Screen::putSpawnable(Direction d, Spawnable *s)
+{
+	// check spawnable already there
+	auto it = spawnableLocations.find(d);
+
+	if (it == spawnableLocations.end())
+	{
+		return;
+	}
+
+	spawnableLocations[d] = s;
+}
 
 Screen *Screen::setName(string name)
 {
@@ -76,9 +102,4 @@ void Screen::doMove(string move)
 	auto fMove = moveBehaviours[move];
 
 	fMove();
-}
-
-void Screen::putSpawnable(Direction d, Spawnable s)
-{
-	spawnableLocations[d] = s;
 }
