@@ -1,15 +1,14 @@
 #include "stdafx.h"
 
 #include "Screens.h"
+#include "Game.h"
 
 using std::pair;
 
 using enums::GameState;
 
-Screens::Screens(State *state)
-{
-	this->state = state;
-}
+Screens::Screens()
+{}
 
 Screens::~Screens()
 {}
@@ -29,13 +28,13 @@ Screen *Screens::main()
 
 	scr->defineMoveBehaviour("start", [this]
 	{
-		state->setState(GameState::PLAYING);
-		state->setScreen(start());
+		State::getInstance().setState(GameState::PLAYING);
+		State::getInstance().setScreen(start());
 	});
 
 	scr->defineMoveBehaviour("exit", [this]
 	{
-		state->setState(GameState::ENDED);
+		State::getInstance().setState(GameState::ENDED);
 	});
 
 	return scr;

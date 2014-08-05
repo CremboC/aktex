@@ -1,19 +1,6 @@
 #include "stdafx.h"
 
-#include <cstdarg>
-
 #include "State.h"
-
-#include "io.h"
-
-State::State()
-{
-	this->player = new Player;
-	this->currentState = GameState::RUNNING;
-}
-
-State::~State()
-{}
 
 Player *State::getPlayer()
 {
@@ -30,6 +17,16 @@ GameState State::getCurrentState()
 	return currentState;
 }
 
+Vec<Spawnable *> State::getSpawnables()
+{
+	return spawnables;
+}
+
+int State::getRoomNumber()
+{
+	return roomNumber;
+}
+
 void State::setState(GameState newState)
 {
 	this->currentState = newState;
@@ -38,6 +35,7 @@ void State::setState(GameState newState)
 void State::setScreen(Screen *screen)
 {
 	this->currentScreen = screen;
+	roomNumber++;
 }
 
 void State::registerSpawnable(Spawnable *spawnable)
@@ -45,10 +43,10 @@ void State::registerSpawnable(Spawnable *spawnable)
 	spawnables.push_back(spawnable);
 }
 
-template<class... T>
-void State::registerSpawnables(T *... args)
+void State::registerSpawnables(Vec<Spawnable *> spawnables)
 {
-	io::puts(sizeof...(args));
-
-	spawnables.push_back(spawnable);
+	for (auto i : spawnables)
+	{
+		spawnables.push_back(i);
+	}
 }

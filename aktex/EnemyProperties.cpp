@@ -39,3 +39,18 @@ EnemyProperties *EnemyProperties::items(vector<Item *> items)
 	this->mItems = items;
 	return this;
 }
+
+float EnemyProperties::getDropLikelyHood()
+{
+	return mDropLikelyhood;
+}
+
+int EnemyProperties::getNumberOfPossibleDrops()
+{
+	return numberOfPossibleDrops;
+}
+
+Vec<Item *> EnemyProperties::getItems()
+{
+	return mItems;
+}

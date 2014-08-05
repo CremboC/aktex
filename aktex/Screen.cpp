@@ -1,6 +1,13 @@
 #include "stdafx.h"
 
+#include <typeinfo>
+
 #include "Screen.h"
+#include "State.h"
+#include "Utils.h"
+#include "Enemy.h"
+
+#include "io.h"
 
 using exceptions::IllegalMoveException;
 
@@ -8,17 +15,23 @@ using enums::Direction;
 
 using consts::directionsMap;
 
+using types::Vec;
+
 Screen::Screen()
 {
 	this->mInitialTextShown = false;
 
-	// initialise spawnables
-	for (auto it = directionsMap.begin(); it != directionsMap.end(); ++it)
-	{
-		string name = it->first;
-		Direction dir = it->second;
+	generateSpawnables();
 
-		putSpawnable(dir, nullptr);
+	io::puts("Printing spawnablesLocs: ");
+
+	// initialise spawnables
+	for (auto it = spawnableLocations.begin(); it != spawnableLocations.end(); ++it)
+	{
+		Direction d = it->first;
+		Spawnable *s = it->second;
+
+		io::puts("type: " + s->realType());
 	}
 }
 
@@ -27,15 +40,38 @@ Screen::~Screen()
 
 void Screen::putSpawnable(Direction d, Spawnable *s)
 {
-	// check spawnable already there
-	auto it = spawnableLocations.find(d);
-
-	if (it == spawnableLocations.end())
-	{
-		return;
-	}
-
 	spawnableLocations[d] = s;
+}
+
+void Screen::generateSpawnables()
+{
+	// get all the available, registered spawnables
+	Vec<Spawnable *> spawnables = State::getInstance().getSpawnables();
+
+	// initialise spawnables
+	for (auto it = directionsMap.begin(); it != directionsMap.end(); ++it)
+	{
+		Direction dir = it->second;
+
+		// used to determine whether there will be something in this direction
+		float lr = Utils::random(0.0f, 1.0f);
+
+		// using the ratio, decide whether to put something into this location
+		if (lr > MAX_SPAWN_RATIO - (State::getInstance().getRoomNumber() * SPAWN_RATIO_CHNG))
+		{
+			// generate a random int which will pick one of the spawnables
+			int rand = Utils::random(0, spawnables.size() - 1);
+
+			Spawnable *sp = spawnables[rand];
+
+			if (spawnables[rand]->realType() == "Enemy")
+			{
+				sp = ((Enemy *) sp)->build(enemyProperties);
+			}
+
+			putSpawnable(dir, sp);
+		}
+	}
 }
 
 Screen *Screen::setName(string name)
@@ -68,7 +104,7 @@ string Screen::getText()
 	return text;
 }
 
-vector<string> Screen::getAllowedMoves()
+Vec<string> Screen::getAllowedMoves()
 {
 	return allowedMoves;
 }

@@ -13,16 +13,32 @@ private:
 	Player *player;
 	Screen *currentScreen;
 
+	int roomNumber = 0;
 	GameState currentState;
 
 	Vec<Spawnable *> spawnables;
 
+	State()
+	{
+		this->player = new Player;
+		this->currentState = GameState::RUNNING;
+	}
+
+	State(State const&);          // Don't Implement
+	void operator=(State const&); // Don't implement
+
 public:
-	State();
-	~State();
+
+	static State& getInstance()
+	{
+		static State instance; // Guaranteed to be destroyed.
+		// Instantiated on first use.
+		return instance;
+	}
 
 	Player *getPlayer();
 	Screen *getCurrentScreen();
+	int getRoomNumber();
 	GameState getCurrentState();
 	Vec<Spawnable *> getSpawnables();
 
@@ -31,6 +47,5 @@ public:
 
 	void registerSpawnable(Spawnable *spawnable);
 
-	template<class... T>
-	void registerSpawnables(T *... args);
+	void registerSpawnables(Vec<Spawnable *> spawnable);
 };

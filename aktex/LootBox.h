@@ -8,4 +8,5 @@ public:
 	~LootBox();
 
 	void action();
+	string realType();
 };

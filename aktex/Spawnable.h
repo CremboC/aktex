@@ -17,4 +17,6 @@ public:
 
 	// defines what happens once this spawnable has been "reached"
 	virtual void action() = 0;
+
+	virtual string realType() = 0;
 };

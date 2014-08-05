@@ -3,7 +3,8 @@
 #include "Item.h"
 
 using std::pair;
-using std::vector;
+
+using types::Vec;
 
 class EnemyProperties
 {
@@ -21,11 +22,15 @@ public:
 	EnemyProperties *dropLikelyhood(float dropLikelyhood);
 
 	// what items the enemy can drop
-	EnemyProperties *items(vector<Item *> items);
+	EnemyProperties *items(Vec<Item *> items);
+
+	float getDropLikelyHood();
+	int getNumberOfPossibleDrops();
+	Vec<Item *> getItems();
 
 private:
 	pair<int, int> mHpRange;
 	float mDropLikelyhood;
 	int numberOfPossibleDrops;
-	vector<Item *> mItems;
+	Vec<Item *> mItems;
 };

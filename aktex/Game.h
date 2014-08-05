@@ -14,8 +14,7 @@ private:
 
 	ss_hashmap availableScreens;
 
-	State * state = new State;
-	Screens * screens = new Screens(state);
+	Screens *screens;
 
 	// convenience wrapper method for this->state->getCurrentScreen()
 	Screen *screen();
@@ -27,6 +26,7 @@ private:
 	void loadSpawnables();
 
 public:
+
 	Game();
 	~Game();
 

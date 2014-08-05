@@ -19,3 +19,8 @@
 #include "exceptions.h"
 
 #define SCR_WIDTH 80
+
+#define MAX_SPAWN_RATIO 0.8f
+#define MIN_SPAWN_RATIO 0.2f
+
+#define SPAWN_RATIO_CHNG 0.1f

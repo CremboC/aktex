@@ -6,10 +6,9 @@
 class Screens
 {
 private:
-	State *state;
 
 public:
-	Screens(State *state);
+	Screens();
 	~Screens();
 
 	// returns the start screen

@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "LootBox.h"
+#include "Enemy.h"
 
 #include "io.h"
 
@@ -16,7 +17,7 @@ Game::Game()
 
 	availableScreens["main"] = screens->main();
 
-	state->setScreen(availableScreens["main"]);
+	State::getInstance().setScreen(availableScreens["main"]);
 
 	start();
 }
@@ -52,7 +53,7 @@ void Game::start()
 			io::puts("");
 		}
 
-		if (state->getCurrentState() == GameState::ENDED)
+		if (State::getInstance().getCurrentState() == GameState::ENDED)
 			handleExit();
 	}
 }
@@ -60,7 +61,7 @@ void Game::start()
 // convenience wrapper method for this->state->getCurrentScreen()
 Screen *Game::screen()
 {
-	return this->state->getCurrentScreen();
+	return State::getInstance().getCurrentScreen();
 }
 
 // handles what happens when the gamestate becomes ENDED
@@ -73,7 +74,9 @@ void Game::handleExit()
 // loads all the spawnable prototypes
 void Game::loadSpawnables()
 {
-	Spawnable * lootBox = new LootBox();
+	Spawnable *lootBox = new LootBox;
+	Spawnable *enemy = new Enemy;
 
-	state->registerSpawnables(lootBox, lootBox);
+	State::getInstance().registerSpawnable(lootBox);
+	State::getInstance().registerSpawnable(enemy);
 }
