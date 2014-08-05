@@ -74,6 +74,8 @@ void Screen::generateSpawnables()
 				sp = spawnables[rand];
 			} while (spawnables[rand]->realType() == "Enemy" && enemyProperties == nullptr);
 
+			// if is enemy, need to assign its properties defined earlier
+			// while constructing the Screen
 			if (spawnables[rand]->realType() == "Enemy")
 			{
 				sp = ((Enemy *) sp)->build(enemyProperties);
