@@ -34,13 +34,8 @@ private:
 	void generateSpawnables();
 
 public:
-	Screen();
+	Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps);
 	~Screen();
-
-	Screen *setName(string name);
-	Screen *setText(string text);
-	Screen *setAllowedMoves(Vec<string> allowedMoves);
-	Screen *setEnemyProperties(EnemyProperties *eProps);
 
 	string getName();
 	string getText();

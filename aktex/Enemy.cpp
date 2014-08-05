@@ -21,8 +21,19 @@ string Enemy::realType()
 Enemy *Enemy::build(EnemyProperties *props)
 {
 	Enemy *e = new Enemy(this);
-	e->numOfDrops = props->getNumberOfPossibleDrops();
-	e->likelyHood = props->getDropLikelyHood();
+
+	e->setNumOfDrops(props->getNumberOfPossibleDrops());
+	e->setLikelyhood(props->getDropLikelyHood());
 
 	return e;
+}
+
+void Enemy::setNumOfDrops(int n)
+{
+	numOfDrops = n;
+}
+
+void Enemy::setLikelyhood(float l)
+{
+	likelyhood = l;
 }

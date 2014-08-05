@@ -40,12 +40,12 @@ EnemyProperties *EnemyProperties::items(vector<Item *> items)
 	return this;
 }
 
-float EnemyProperties::getDropLikelyHood()
+const float EnemyProperties::getDropLikelyHood()
 {
 	return mDropLikelyhood;
 }
 
-int EnemyProperties::getNumberOfPossibleDrops()
+const int EnemyProperties::getNumberOfPossibleDrops()
 {
 	return numberOfPossibleDrops;
 }

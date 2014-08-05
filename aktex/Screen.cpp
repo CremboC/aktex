@@ -17,15 +17,17 @@ using consts::directionsMap;
 
 using types::Vec;
 
-Screen::Screen()
+Screen::Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps)
 {
 	this->mInitialTextShown = false;
+	this->name = name;
+	this->text = text;
+	this->allowedMoves = allowedMoves;
+	this->enemyProperties = eProps;
 
 	generateSpawnables();
 
-	io::puts("Printing spawnablesLocs: ");
-
-	// initialise spawnables
+	// here for debug m8s
 	for (auto it = spawnableLocations.begin(); it != spawnableLocations.end(); ++it)
 	{
 		Direction d = it->first;
@@ -60,9 +62,17 @@ void Screen::generateSpawnables()
 		if (lr > MAX_SPAWN_RATIO - (State::getInstance().getRoomNumber() * SPAWN_RATIO_CHNG))
 		{
 			// generate a random int which will pick one of the spawnables
-			int rand = Utils::random(0, spawnables.size() - 1);
+			Spawnable *sp = nullptr;
+			int rand = 0;
 
-			Spawnable *sp = spawnables[rand];
+			// if enemyproperties is not set (nullptr), make sure no enemies are
+			// present in the spawnable locations
+			do
+			{
+				rand = Utils::random(0, spawnables.size() - 1);
+
+				sp = spawnables[rand];
+			} while (spawnables[rand]->realType() == "Enemy" && enemyProperties == nullptr);
 
 			if (spawnables[rand]->realType() == "Enemy")
 			{
@@ -72,30 +82,6 @@ void Screen::generateSpawnables()
 			putSpawnable(dir, sp);
 		}
 	}
-}
-
-Screen *Screen::setName(string name)
-{
-	this->name = name;
-	return this;
-}
-
-Screen *Screen::setText(string text)
-{
-	this->text = text;
-	return this;
-}
-
-Screen *Screen::setAllowedMoves(vector<string> allowedMoves)
-{
-	this->allowedMoves = allowedMoves;
-	return this;
-}
-
-Screen *Screen::setEnemyProperties(EnemyProperties *eProps)
-{
-	this->enemyProperties = eProps;
-	return this;
 }
 
 string Screen::getText()

@@ -24,8 +24,8 @@ public:
 	// what items the enemy can drop
 	EnemyProperties *items(Vec<Item *> items);
 
-	float getDropLikelyHood();
-	int getNumberOfPossibleDrops();
+	const float getDropLikelyHood();
+	const int getNumberOfPossibleDrops();
 	Vec<Item *> getItems();
 
 private:

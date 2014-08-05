@@ -13,7 +13,7 @@ class Enemy
 {
 private:
 	int numOfDrops;
-	float likelyHood;
+	float likelyhood;
 	Vec<Item *> items;
 
 public:
@@ -23,6 +23,9 @@ public:
 
 	void action();
 	string realType();
+
+	void setNumOfDrops(int n);
+	void setLikelyhood(float l);
 
 	Enemy *build(EnemyProperties *props);
 };
