@@ -7,7 +7,6 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
 #include <tchar.h>
 
 #include <string>
@@ -23,4 +22,4 @@
 #define MAX_SPAWN_RATIO 0.8f
 #define MIN_SPAWN_RATIO 0.2f
 
-#define SPAWN_RATIO_CHNG 0.1f
+#define SPAWN_RATIO_CHNG 0.02f
