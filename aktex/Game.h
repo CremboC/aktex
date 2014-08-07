@@ -7,12 +7,12 @@
 using std::unordered_map;
 using std::string;
 
+using types::HashMap;
+
 class Game
 {
 private:
-	typedef unordered_map<string, Screen *> ss_hashmap;
-
-	ss_hashmap availableScreens;
+	HashMap<string, Screen *> availableScreens;
 
 	Screens *screens;
 

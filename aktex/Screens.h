@@ -3,10 +3,10 @@
 #include "Screen.h"
 #include "State.h"
 
+using types::HashMap;
+
 class Screens
 {
-private:
-
 public:
 	Screens();
 	~Screens();

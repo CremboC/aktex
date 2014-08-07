@@ -33,6 +33,8 @@ private:
 
 	void generateSpawnables();
 
+	void parseCommand(string command);
+
 public:
 	Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps);
 	~Screen();

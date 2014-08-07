@@ -36,4 +36,8 @@ namespace consts
 		"Keith", "Fief", "Swordsman", "Crossbowman",
 		"Longswordsman", "King"
 	};
+
+	const Vec<string> commands{
+		"go", "inventory", "restart"
+	};
 }

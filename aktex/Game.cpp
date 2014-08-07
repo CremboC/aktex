@@ -4,6 +4,8 @@
 #include "LootBox.h"
 #include "Enemy.h"
 
+#include "DefaultCommands.h"
+
 #include "io.h"
 
 using std::string;
