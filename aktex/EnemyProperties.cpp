@@ -50,6 +50,11 @@ const int EnemyProperties::getNumberOfPossibleDrops()
 	return numberOfPossibleDrops;
 }
 
+const pair<int, int> EnemyProperties::getHpRange()
+{
+	return mHpRange;
+}
+
 Vec<Item *> EnemyProperties::getItems()
 {
 	return mItems;

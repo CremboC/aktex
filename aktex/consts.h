@@ -3,6 +3,7 @@
 using std::string;
 
 using types::HashMap;
+using types::Vec;
 
 using enums::Direction;
 
@@ -18,5 +19,21 @@ namespace consts
 			{ "southwest", Direction::SW },
 			{ "west", Direction::W },
 			{ "northwest", Direction::NW }
+	};
+
+	const Vec<string> adverbs{
+		"Badass", "Unknowing", "Ridiculous",
+		"Strong", "Witty", "Insightful",
+		"Quick", "Crazy", "Peasant",
+		"Slow", "Reckless", "Sir",
+		"Boring", "Mad", "Rare",
+		"Naive", "Insane"
+	};
+
+	const Vec<string> nouns{
+		"Jean-Luc", "Jean-Michel", "Damm",
+		"Villager", "Jack", "John", "Roach",
+		"Keith", "Fief", "Swordsman", "Crossbowman",
+		"Longswordsman", "King"
 	};
 }
