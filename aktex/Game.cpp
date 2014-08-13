@@ -4,17 +4,20 @@
 #include "LootBox.h"
 #include "Enemy.h"
 
-#include "DefaultCommands.h"
-
 #include "io.h"
+#include "Utils.h"
 
 using std::string;
 using std::pair;
 
+using types::Vec;
+
 using exceptions::IllegalMoveException;
+using exceptions::NonOverriddenMoveException;
 
 Game::Game()
 {
+	cmds = new DefaultCommands;
 	loadSpawnables();
 
 	availableScreens["main"] = screens->main();
@@ -35,30 +38,45 @@ void Game::start()
 		if (!screen()->initialTextShown())
 			io::puts(screen()->getText());
 
-		string inp = io::strInput();
+		string inp = io::multiInput();
+
+		Vec<string> splitInp = Utils::split(inp, ' ');
 
 		try
 		{
 			screen()->doMove(inp);
 		}
-		catch (IllegalMoveException *e)
+		catch (NonOverriddenMoveException *e)
 		{
-			e->getMessage();
-
-			io::print("Move does not exist, try one of the possible commands: ");
-
-			for (auto a : screen()->getAllowedMoves())
+			try
 			{
-				io::print(a + " ");
-			}
+				if (!cmds->exists(splitInp[0]))
+					throw new IllegalMoveException("");
 
-			io::puts("");
+				cmds->call(splitInp);
+			}
+			catch (IllegalMoveException *e)
+			{
+				e->getMessage();
+
+				io::print("Move does not exist, try one of the possible commands: ");
+
+				for (auto a : screen()->getAllowedMoves())
+				{
+					io::print(a + " ");
+				}
+
+				io::puts("");
+			}
 		}
 
 		if (State::getInstance().getCurrentState() == GameState::ENDED)
 			handleExit();
 	}
 }
+
+void Game::parseInput(string inp)
+{}
 
 // convenience wrapper method for this->state->getCurrentScreen()
 Screen *Game::screen()

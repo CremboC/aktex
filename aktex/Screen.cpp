@@ -2,6 +2,7 @@
 
 #include <typeinfo>
 
+#include "Game.h"
 #include "Screen.h"
 #include "State.h"
 #include "Utils.h"
@@ -9,7 +10,7 @@
 
 #include "io.h"
 
-using exceptions::IllegalMoveException;
+using exceptions::NonOverriddenMoveException;
 
 using enums::Direction;
 
@@ -119,7 +120,7 @@ void Screen::doMove(string move)
 
 	if (it == moveBehaviours.end())
 	{
-		throw new IllegalMoveException("Move does not exist.");
+		throw new NonOverriddenMoveException("Move does not exist.");
 	}
 
 	// move exists, fetch it and run it

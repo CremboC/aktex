@@ -15,6 +15,6 @@ namespace types
 	template<class K, class... V>
 	using Func = function < K(V...) > ;
 
-	template<class K>
+	template<typename K>
 	using Vec = vector < K > ;
 }

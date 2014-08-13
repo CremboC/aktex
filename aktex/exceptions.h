@@ -27,4 +27,11 @@ namespace exceptions
 		IllegalMoveException(string msg) : Exception(msg)
 		{}
 	};
+
+	class NonOverriddenMoveException : public Exception
+	{
+	public:
+		NonOverriddenMoveException(string msg) : Exception(msg)
+		{}
+	};
 }

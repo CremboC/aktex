@@ -1,4 +1,9 @@
 #pragma once
+
+using std::string;
+
+using types::Vec;
+
 class Utils
 {
 public:
@@ -10,4 +15,6 @@ public:
 
 	// generate a random float from x to y
 	static float random(float from, float to);
+
+	static Vec<string> split(const string &s, char delim);
 };

@@ -1,16 +1,26 @@
 #pragma once
 
-#include <cstdarg>
+using std::string;
+
+using types::Vec;
 
 class DefaultCommands
 {
 private:
 
+	Vec<string> defaultCommands;
+
 public:
 	DefaultCommands();
 	~DefaultCommands();
 
-	static void go(string params...);
+	void go(string direction);
 
-	static void inventory(string params...);
+	void inventory(string secondary, string fin);
+	void inventory(string secondary);
+	void inventory();
+
+	bool exists(string move);
+
+	void call(Vec<string> params);
 };

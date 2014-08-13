@@ -21,4 +21,20 @@ namespace enums
 		W,
 		NW
 	};
+
+	enum class ItemSpeed
+	{
+		FAST,
+		NORMAL,
+		SLOW
+	};
+
+	enum class ItemType
+	{
+		ARMOR,
+		WEAPON_DAGGER,
+		WEAPON_SWORD,
+		WEAPON_AXE,
+		WEAPON_MACE
+	};
 }

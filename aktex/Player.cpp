@@ -8,3 +8,8 @@ Player::Player()
 
 Player::~Player()
 {}
+
+Inventory *Player::getInventory()
+{
+	return inventory;
+}

@@ -4,6 +4,8 @@
 #include "Screen.h"
 #include "State.h"
 
+#include "DefaultCommands.h"
+
 using std::unordered_map;
 using std::string;
 
@@ -16,6 +18,8 @@ private:
 
 	Screens *screens;
 
+	DefaultCommands *cmds;
+
 	// convenience wrapper method for this->state->getCurrentScreen()
 	Screen *screen();
 
@@ -24,6 +28,8 @@ private:
 
 	// loads all the spawnable prototypes
 	void loadSpawnables();
+
+	void parseInput(string inp);
 
 public:
 

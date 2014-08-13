@@ -2,11 +2,18 @@
 
 #include <stdio.h>
 
+#include "Item.h"
+
+using types::Vec;
+
 class io
 {
 public:
 	io();
 	~io();
+
+	// 
+	static string multiInput();
 
 	// returns a string representation of the user input
 	static string strInput();
@@ -19,4 +26,7 @@ public:
 
 	// prints a string using cout without newline at the end
 	static void print(string out);
+
+	// prints items in a nice format
+	static void printItems(Vec<Item *> item);
 };

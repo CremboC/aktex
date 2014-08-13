@@ -14,6 +14,14 @@ io::io()
 io::~io()
 {}
 
+string io::multiInput()
+{
+	string input;
+	std::getline(cin, input);
+
+	return input;
+}
+
 // returns a string representation of the user input
 string io::strInput()
 {
@@ -42,4 +50,13 @@ void io::puts(string out)
 void io::print(string out)
 {
 	cout << out;
+}
+
+// prints items in a nice format
+void io::printItems(Vec<Item *> items)
+{
+	for (auto a : items)
+	{
+		//cout << a->
+	}
 }

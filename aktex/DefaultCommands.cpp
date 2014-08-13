@@ -1,32 +1,78 @@
 #include "stdafx.h"
 #include "DefaultCommands.h"
 
+#include "State.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "Player.h"
+
 #include "io.h"
 
-using std::string;
-
 DefaultCommands::DefaultCommands()
-{}
+{
+	defaultCommands = { "go", "inventory" };
+}
 
 DefaultCommands::~DefaultCommands()
 {}
 
-void DefaultCommands::go(string params...)
+void DefaultCommands::go(string direction)
+{}
+
+void DefaultCommands::inventory()
 {
-	va_list args;
-	va_start(args, params);
+	Inventory *in = State::getInstance().getPlayer()->getInventory();
 
-	string i = va_arg(args, string);
-
-	io::puts(i);
-
-	va_end(args);
+	Vec<Item *> items = in->getItems();
 }
 
-void DefaultCommands::inventory(string params...)
+void DefaultCommands::inventory(string secondary)
 {
-	va_list args;
-	va_start(args, params);
+	io::puts("secondary: " + secondary);
+}
 
-	va_end(args);
+void DefaultCommands::inventory(string secondary, string fin)
+{
+	io::puts("secondary: " + secondary + " fin: " + fin);
+}
+
+bool DefaultCommands::exists(string move)
+{
+	for (auto cmd : defaultCommands)
+	{
+		if (cmd == move)
+			return true;
+	}
+
+	return false;
+}
+
+void DefaultCommands::call(Vec<string> params)
+{
+	string command = params[0];
+
+	// go should only have one additiona param - direction
+	if (command == "go" && params.size() == 2)
+	{
+		go(params[1]);
+	}
+
+	if (command == "inventory")
+	{
+		switch (params.size())
+		{
+		case 2:
+			inventory(params[1]);
+			break;
+
+		case 3:
+			inventory(params[1], params[2]);
+			break;
+
+		case 1:
+		default:
+			inventory();
+			break;
+		}
+	}
 }

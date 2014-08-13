@@ -7,6 +7,7 @@ using enums::GameState;
 
 using types::Vec;
 
+// singleton
 class State
 {
 private:
@@ -24,8 +25,8 @@ private:
 		this->currentState = GameState::RUNNING;
 	}
 
-	State(State const&);          // Don't Implement
-	void operator=(State const&); // Don't implement
+	State(State const&);
+	void operator=(State const&);
 
 public:
 
