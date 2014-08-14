@@ -29,4 +29,6 @@ public:
 
 	// prints items in a nice format
 	static void printItems(Vec<Item *> item);
+
+	static Vec<Item *> readItemsFile();
 };

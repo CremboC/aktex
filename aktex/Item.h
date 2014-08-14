@@ -14,11 +14,18 @@ private:
 	ItemType type;
 	ItemSpeed speed;
 
-
 public:
-	Item();
-	virtual ~Item();
+	Item(Item *item);
+	Item(string name, int damage, ItemType type, ItemSpeed speed);
+	~Item();
 
-	string getName();
-	int getDamage();
+	int getDamage() const { return damage; }
+
+	string getName() const { return name; }
+
+	ItemType getType() const { return type; }
+
+	ItemSpeed getSpeed() const { return speed; }
+
+	Item *clone();
 };

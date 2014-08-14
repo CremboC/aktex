@@ -20,3 +20,5 @@ public:
 	// generates randomly a room
 	Screen *generateRoom();
 };
+
+

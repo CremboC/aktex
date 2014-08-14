@@ -10,11 +10,13 @@ using std::unordered_map;
 using std::string;
 
 using types::HashMap;
+using types::Vec;
 
 class Game
 {
 private:
 	HashMap<string, Screen *> availableScreens;
+	Vec<Item *> availableItems;
 
 	Screens *screens;
 
@@ -23,11 +25,14 @@ private:
 	// convenience wrapper method for this->state->getCurrentScreen()
 	Screen *screen();
 
-	// handles what happens when the gamestate becomes ENDED
+	// handles what happens when the game state becomes ENDED
 	void handleExit();
 
 	// loads all the spawnable prototypes
 	void loadSpawnables();
+
+	// load items
+	void loadItems();
 
 	void parseInput(string inp);
 

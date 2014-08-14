@@ -24,17 +24,18 @@ namespace enums
 
 	enum class ItemSpeed
 	{
-		FAST,
-		NORMAL,
-		SLOW
+		NA = 0,
+		FAST = 1,
+		NORMAL = 2,
+		SLOW = 4
 	};
 
 	enum class ItemType
 	{
-		ARMOR,
-		WEAPON_DAGGER,
-		WEAPON_SWORD,
-		WEAPON_AXE,
-		WEAPON_MACE
+		ARMOR = 1,
+		WEAPON_DAGGER = 2,
+		WEAPON_SWORD = 4,
+		WEAPON_AXE = 8,
+		WEAPON_MACE = 16
 	};
 }

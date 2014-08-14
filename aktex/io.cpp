@@ -2,6 +2,8 @@
 #include "io.h"
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -59,4 +61,34 @@ void io::printItems(Vec<Item *> items)
 	{
 		//cout << a->
 	}
+}
+
+Vec<Item *> io::readItemsFile()
+{
+	std::ifstream infile("../wep.dat");
+
+	Vec<Item *> items;
+
+	string name;
+	int dmg, type, speed;
+
+	string line;
+	while (std::getline(infile, line))
+	{
+		std::istringstream iss(line);
+
+		if (name == "#")
+			continue;
+
+		if (!(iss >> name >> dmg >> type >> speed)) 
+			break;
+
+		ItemType itemType = static_cast<ItemType>(type);
+		ItemSpeed itemSpeed = static_cast<ItemSpeed>(speed);
+
+		items.push_back(new Item(name, dmg, itemType, itemSpeed));
+
+	}
+
+	return items;
 }

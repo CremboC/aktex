@@ -7,6 +7,9 @@ using std::pair;
 
 using enums::GameState;
 
+using enums::ItemSpeed;
+using enums::ItemType;
+
 Screens::Screens()
 {}
 
@@ -42,7 +45,9 @@ Screen *Screens::main()
 // the first game screen
 Screen *Screens::start()
 {
-	vector<Item *> items = { new Item() };
+	vector<Item *> items = { 
+		new Item("first", 10, ItemType::WEAPON_SWORD, ItemSpeed::NORMAL) 
+	};
 
 	EnemyProperties *eProps = new EnemyProperties;
 	eProps
@@ -61,6 +66,7 @@ Screen *Screens::start()
 
 	return scr;
 }
+
 
 Screen *Screens::generateRoom()
 {

@@ -18,11 +18,14 @@ using exceptions::NonOverriddenMoveException;
 Game::Game()
 {
 	cmds = new DefaultCommands;
+
 	loadSpawnables();
+	loadItems();
 
 	availableScreens["main"] = screens->main();
 
 	State::getInstance().setScreen(availableScreens["main"]);
+
 
 	start();
 }
@@ -99,4 +102,14 @@ void Game::loadSpawnables()
 
 	State::getInstance().registerSpawnable(lootBox);
 	State::getInstance().registerSpawnable(enemy);
+}
+
+void Game::loadItems()
+{
+	availableItems = io::readItemsFile();
+
+	for (auto i : availableItems)
+	{
+		io::puts(i->getName());
+	}
 }

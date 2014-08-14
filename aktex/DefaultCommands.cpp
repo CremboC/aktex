@@ -51,7 +51,7 @@ void DefaultCommands::call(Vec<string> params)
 {
 	string command = params[0];
 
-	// go should only have one additiona param - direction
+	// go should only have one additional param - direction
 	if (command == "go" && params.size() == 2)
 	{
 		go(params[1]);
