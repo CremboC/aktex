@@ -29,4 +29,6 @@ public:
 	ItemSpeed getSpeed() const { return speed; }
 
 	Item *clone();
+
+	string toString();
 };

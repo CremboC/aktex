@@ -9,48 +9,81 @@
 #include "Enemy.h"
 
 #include "io.h"
+#include "LootBox.h"
 
 using exceptions::NonOverriddenMoveException;
 
 using enums::Direction;
 
 using consts::directionsMap;
+using consts::reverseDirectionLookup;
 
 using types::Vec;
 
-Screen::Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps)
+Screen::Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps, bool isEmpty)
 {
 	this->mInitialTextShown = false;
 	this->name = name;
 	this->text = text;
 	this->allowedMoves = allowedMoves;
 	this->enemyProperties = eProps;
+	this->isEmpty = isEmpty;
 
-	generateSpawnables();
+	if (!isEmpty)
+	{
+		generateSpawnables();
+	}
 
 	// here for debug m8s
-	//for (auto it = spawnableLocations.begin(); it != spawnableLocations.end(); ++it)
-	//{
-	//	Direction d = it->first;
-	//	Spawnable *s = it->second;
+	for (auto sp : spawnableLocations)
+	{
+		Direction d = sp.first;
+		Spawnable *s = sp.second;
 
-	//	io::puts("type: " + s->realType());
-	//}
+		io::puts("type: " + s->realType());
+	}
 }
 
 Screen::~Screen()
-{}
+{
+	for (auto sp : spawnableLocations)
+	{
+		if (sp.second != nullptr)
+		{
+			delete sp.second;
+		}	
+	}
+}
 
 void Screen::act()
 {
 	Player *p = State::getInstance().getPlayer();
 
-	//if (!this->initialTextShown())
-		
-
 	if (p->getPosition() == Direction::C)
 	{
 		io::puts(getText());
+
+		Vec<string> nonEmptyLocations;
+
+		for (auto s : spawnableLocations)
+		{
+			if (s.second != nullptr)
+			{
+				string direction = reverseDirectionLookup(s.first);
+				nonEmptyLocations.push_back(direction);
+			}
+		}
+
+		if (nonEmptyLocations.size() > 0)
+		{
+			io::print("You see something at ");
+			for (auto loc : nonEmptyLocations)
+			{
+				io::print(loc + ", ");
+			}
+		}
+
+		io::puts();
 	}
 	else
 	{
@@ -60,12 +93,11 @@ void Screen::act()
 		{
 			s->action();
 		}
-		else
-		{
-			io::puts("Nothing here...");
-		}
-
 		
+		if (s == nullptr)
+		{
+			p->setPosition(Direction::C);
+		}
 	}
 }
 
@@ -75,9 +107,14 @@ void Screen::generateSpawnables()
 	Vec<Spawnable *> spawnables = State::getInstance().getSpawnables();
 
 	// initialise spawnables
-	for (auto it = directionsMap.begin(); it != directionsMap.end(); ++it)
+	for (auto m : directionsMap)
 	{
-		Direction dir = it->second;
+		Direction dir = m.second;
+
+		if (dir == Direction::C)
+		{
+			continue;
+		}
 
 		// used to determine whether there will be something in this direction
 		float lr = Utils::random(0.0f, 1.0f);
@@ -87,22 +124,28 @@ void Screen::generateSpawnables()
 		{
 			// generate a random int which will pick one of the spawnables
 			Spawnable *sp = nullptr;
-			int rand = 0;
 
-			// if enemyproperties is not set (nullptr), make sure no enemies are
+			int randNumber = 0;
+
+			// if enemy properties is not set (nullptr), make sure no enemies are
 			// present in the spawnable locations
 			do
 			{
-				rand = Utils::random(0, spawnables.size() - 1);
+				randNumber = Utils::random(0, spawnables.size() - 1);
 
-				sp = spawnables[rand];
-			} while (spawnables[rand]->realType() == "Enemy" && enemyProperties == nullptr);
+				sp = spawnables[randNumber];
+			} while (spawnables[randNumber]->realType() == "Enemy" && enemyProperties == nullptr);
 
 			// if is enemy, need to assign its properties defined earlier
 			// while constructing the Screen
-			if (spawnables[rand]->realType() == "Enemy")
+			if (spawnables[randNumber]->realType() == "Enemy")
 			{
-				sp = ((Enemy *) sp)->build(enemyProperties);
+				sp = new Enemy(enemyProperties);
+			}
+
+			if (spawnables[randNumber]->realType() == "LootBox")
+			{
+				sp = new LootBox;
 			}
 
 			putSpawnable(dir, sp);
@@ -115,18 +158,17 @@ void Screen::putSpawnable(Direction d, Spawnable *s)
 	spawnableLocations[d] = s;
 }
 
-string Screen::getText()
+string Screen::getText() const
 {
-	mInitialTextShown = true;
 	return text;
 }
 
-Vec<string> Screen::getAllowedMoves()
+Vec<string> Screen::getAllowedMoves() const
 {
 	return allowedMoves;
 }
 
-EnemyProperties *Screen::getEnemyProperties()
+EnemyProperties *Screen::getEnemyProperties() const
 {
 	return enemyProperties;
 }
@@ -155,4 +197,14 @@ void Screen::doMove(string move)
 	auto fMove = moveBehaviours[move];
 
 	fMove();
+}
+
+bool Screen::isLocEmpty(Direction d)
+{
+	if (spawnableLocations[d] == nullptr)
+	{
+		return true;
+	}
+
+	return false;
 }

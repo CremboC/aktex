@@ -18,7 +18,7 @@ private:
 
 public:
 	Enemy();
-	Enemy(Enemy *e);
+	Enemy(EnemyProperties *props);
 	~Enemy();
 
 	void action();
@@ -26,6 +26,4 @@ public:
 
 	void setNumOfDrops(int n);
 	void setLikelyhood(float l);
-
-	Enemy *build(EnemyProperties *props);
 };

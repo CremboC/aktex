@@ -6,10 +6,29 @@
 #include "State.h"
 
 Enemy::Enemy()
-{}
+{
 
-Enemy::Enemy(Enemy *e)
-{}
+}
+
+Enemy::Enemy(EnemyProperties *props)
+{
+	this->setNumOfDrops(props->getNumberOfPossibleDrops());
+	this->setLikelyhood(props->getDropLikelyHood());
+	this->setHp(Utils::random(
+		props->getHpRange().first,
+		props->getHpRange().second
+		));
+	this->setDamage(5);
+	this->setDefence(2);
+
+	int randomAdverb = Utils::random(0, consts::adverbs.size() - 1);
+	string adverb = consts::adverbs[randomAdverb];
+
+	int randomNoun = Utils::random(0, consts::nouns.size() - 1);
+	string noun = consts::nouns[randomNoun];
+
+	this->setName(adverb + " " + noun);
+}
 
 Enemy::~Enemy()
 {}
@@ -21,7 +40,10 @@ void Enemy::action()
 	if (s == GameState::PLAYING)
 	{
 		io::puts("Encountered " + name + "!");
-		io::puts(name + " has " + std::to_string(hp) + " and deals " + std::to_string(damage));
+		io::puts(name + " has " + std::to_string(hp) 
+			+ "hp and deals " 
+			+ std::to_string(damage)
+			+ " damage per hit");
 	}
 
 	State::getInstance().setState(GameState::FIGHTING);
@@ -30,28 +52,6 @@ void Enemy::action()
 string Enemy::realType()
 {
 	return "Enemy";
-}
-
-Enemy *Enemy::build(EnemyProperties *props)
-{
-	Enemy *e = new Enemy();
-
-	e->setNumOfDrops(props->getNumberOfPossibleDrops());
-	e->setLikelyhood(props->getDropLikelyHood());
-	e->setHp(Utils::random(
-		props->getHpRange().first,
-		props->getHpRange().second
-		));
-
-	int randomAdverb = Utils::random(0, consts::adverbs.size());
-	string adverb = consts::adverbs[randomAdverb];
-
-	int randomNoun = Utils::random(0, consts::nouns.size());
-	string noun = consts::nouns[randomNoun];
-
-	e->setName(adverb + " " + noun);
-
-	return e;
 }
 
 void Enemy::setNumOfDrops(int n)

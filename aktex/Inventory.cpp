@@ -11,3 +11,8 @@ Vec<Item *> Inventory::getItems()
 {
 	return this->items;
 }
+
+void Inventory::putItem(Item *item)
+{
+	items.push_back(item);
+}

@@ -15,10 +15,13 @@ class Screen
 {
 private:
 	// private members
+	bool isEmpty;
 
 	Vec<string> allowedMoves;
+
 	string name;
 	string text;
+
 	EnemyProperties *enemyProperties;
 
 	HashMap<Direction, Spawnable *> spawnableLocations;
@@ -36,19 +39,21 @@ private:
 	void parseCommand(string command);
 
 public:
-	Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps);
+	Screen(string name, string text, Vec<string> allowedMoves, EnemyProperties *eProps, bool isEmpty);
 	~Screen();
 
-	string getName();
-	string getText();
+	string getName() const;
+	string getText() const;
 
-	Vec<string> getAllowedMoves();
-	EnemyProperties *getEnemyProperties();
+	Vec<string> getAllowedMoves() const;
+	EnemyProperties *getEnemyProperties() const;
 
 	bool initialTextShown();
 
 	void defineMoveBehaviour(string move, Func<void> func);
 	void doMove(string move);
+
+	bool isLocEmpty(Direction d);
 
 	void act();
 };

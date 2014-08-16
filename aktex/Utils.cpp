@@ -5,6 +5,7 @@
 #include <sstream>
 #include <random>
 #include <iostream>
+#include <time.h>
 
 using std::stringstream;
 
@@ -25,7 +26,7 @@ int Utils::random(int from, int to)
 	return distribution(generator);
 }
 
-// generate a random flaot from x to y
+// generate a random float from x to y
 float Utils::random(float from, float to)
 {
 	std::default_random_engine generator(rand());

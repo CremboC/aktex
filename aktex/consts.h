@@ -22,6 +22,32 @@ namespace consts
 			{ "northwest", Direction::NW }
 	};
 
+	static bool directionExists(string direction)
+	{
+		// check if move exists first
+		auto it = directionsMap.find(direction);
+
+		if (it == directionsMap.end())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	static string reverseDirectionLookup(Direction d)
+	{
+		for (auto m : directionsMap)
+		{
+			if (m.second == d)
+			{
+				return m.first;
+			}
+		}
+
+		return "";
+	}
+
 	const Vec<string> adverbs{
 		"Badass", "Unknowing", "Ridiculous",
 		"Strong", "Witty", "Insightful",

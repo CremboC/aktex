@@ -41,6 +41,7 @@ void Game::start()
 
 		string inp = io::multiInput();
 		Vec<string> splitInp = Utils::split(inp, ' ');
+		io::puts();
 
 		try
 		{
@@ -65,7 +66,7 @@ void Game::start()
 					io::print(a + " ");
 				}
 
-				io::puts("");
+				io::puts();
 			}
 		}
 
@@ -102,5 +103,5 @@ void Game::loadSpawnables()
 
 void Game::loadItems()
 {
-	availableItems = io::readItemsFile();
+	State::getInstance().registerItems(io::readItemsFile());
 }

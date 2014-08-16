@@ -10,7 +10,6 @@ class Player :
 {
 private:
 	Inventory *inventory;
-
 	Direction position;
 
 public:

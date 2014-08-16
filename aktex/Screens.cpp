@@ -25,18 +25,14 @@ Screen *Screens::main()
 		"To start the game type in start and press enter! \n"
 		"Also try 'options' for options or 'exit' to exit the game \n",
 		{ "start", "exit", "options" },
-		nullptr
+		nullptr,
+		true
 		);
 
 	scr->defineMoveBehaviour("start", [this]
 	{
 		State::getInstance().setState(GameState::PLAYING);
 		State::getInstance().setScreen(start());
-	});
-
-	scr->defineMoveBehaviour("exit", [this]
-	{
-		State::getInstance().setState(GameState::ENDED);
 	});
 
 	return scr;
@@ -60,8 +56,9 @@ Screen *Screens::start()
 		"first",
 		"Dis da' first game screen, wassup y'all. \n"
 		"Youse in room, youse see door north of you. What you do?",
-		{ "go {}", "exit" },
-		eProps
+		{},
+		eProps,
+		false
 		);
 
 	return scr;

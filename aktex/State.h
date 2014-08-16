@@ -2,6 +2,7 @@
 
 #include "Player.h"
 #include "Screen.h"
+#include "Item.h"
 
 using enums::GameState;
 
@@ -18,6 +19,7 @@ private:
 	GameState currentState;
 
 	Vec<Spawnable *> spawnables;
+	Vec<Item *> items;
 
 	State()
 	{
@@ -39,13 +41,18 @@ public:
 
 	Player *getPlayer();
 	Screen *getCurrentScreen();
+
 	int getRoomNumber();
+
 	GameState getCurrentState();
 	Vec<Spawnable *> getSpawnables();
+	Vec<Item *> getItems();
 
 	void setState(GameState newState);
 	void setScreen(Screen *screen);
 
 	void registerSpawnable(Spawnable *spawnable);
 	void registerSpawnables(Vec<Spawnable *> spawnable);
+
+	void registerItems(Vec<Item *> items);
 };

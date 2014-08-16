@@ -43,10 +43,23 @@ void State::registerSpawnable(Spawnable *spawnable)
 	spawnables.push_back(spawnable);
 }
 
-void State::registerSpawnables(Vec<Spawnable *> spawnables)
+void State::registerSpawnables(Vec<Spawnable *> spawnablesToRegister)
 {
-	for (auto i : spawnables)
+	for (auto i : spawnablesToRegister)
 	{
 		spawnables.push_back(i);
 	}
+}
+
+void State::registerItems(Vec<Item *> itemsToRegister)
+{
+	for (auto i : itemsToRegister)
+	{
+		items.push_back(i);
+	}
+}
+
+Vec<Item *> State::getItems()
+{
+	return items;
 }

@@ -31,3 +31,13 @@ int Entity::getDamage()
 {
 	return damage;
 }
+
+void Entity::setDamage(int damage)
+{
+	this->damage = damage;
+}
+
+void Entity::setDefence(int defence)
+{
+	this->defence = defence;
+}

@@ -21,6 +21,9 @@ public:
 	// returns an int representation of the user input
 	static int intInput();
 
+	// prints a newline
+	static void puts();
+
 	// prints a string using cout with a newline at the end
 	static void puts(string out);
 

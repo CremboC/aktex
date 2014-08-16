@@ -48,6 +48,12 @@ void io::puts(string out)
 	cout << out << endl;
 }
 
+// prints a newline
+void io::puts()
+{
+	cout << endl;
+}
+
 // prints a string using cout without newline at the end
 void io::print(string out)
 {

@@ -6,11 +6,14 @@
 #include "Item.h"
 #include "Player.h"
 
+#include "io.h"
+
 using consts::directionsMap;
+using consts::directionExists;
 
 DefaultCommands::DefaultCommands()
 {
-	defaultCommands = { "go", "inventory" };
+	defaultCommands = { "go", "inventory", "exit" };
 }
 
 DefaultCommands::~DefaultCommands()
@@ -18,7 +21,18 @@ DefaultCommands::~DefaultCommands()
 
 void DefaultCommands::go(string direction)
 {
-	State::getInstance().getPlayer()->setPosition(directionsMap.at(direction));
+	Player *player = State::getInstance().getPlayer();
+	Screen *scr = State::getInstance().getCurrentScreen();
+
+	if (directionExists(direction))
+	{
+		Direction dir = directionsMap.at(direction);
+
+		if (!scr->isLocEmpty(dir) || dir == Direction::C)
+		{
+			player->setPosition(dir);
+		}
+	}
 }
 
 void DefaultCommands::inventory()
@@ -26,6 +40,11 @@ void DefaultCommands::inventory()
 	Inventory *in = State::getInstance().getPlayer()->getInventory();
 
 	Vec<Item *> items = in->getItems();
+
+	for (auto item : items)
+	{
+		io::puts(item->getName());
+	}
 }
 
 void DefaultCommands::inventory(string secondary)
@@ -83,5 +102,10 @@ void DefaultCommands::call(Vec<string> params)
 			inventory();
 			break;
 		}
+	}
+
+	if (command == "exit")
+	{
+		State::getInstance().setState(GameState::ENDED);
 	}
 }
