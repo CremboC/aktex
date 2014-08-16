@@ -26,7 +26,6 @@ Game::Game()
 
 	State::getInstance().setScreen(availableScreens["main"]);
 
-
 	start();
 }
 
@@ -38,16 +37,14 @@ void Game::start()
 {
 	while (true)
 	{
-		if (!screen()->initialTextShown())
-			io::puts(screen()->getText());
+		screen()->act();
 
 		string inp = io::multiInput();
-
 		Vec<string> splitInp = Utils::split(inp, ' ');
 
 		try
 		{
-			screen()->doMove(inp);
+			screen()->doMove(splitInp[0]);
 		}
 		catch (NonOverriddenMoveException *e)
 		{
@@ -60,7 +57,6 @@ void Game::start()
 			}
 			catch (IllegalMoveException *e)
 			{
-				e->getMessage();
 
 				io::print("Move does not exist, try one of the possible commands: ");
 
@@ -107,9 +103,4 @@ void Game::loadSpawnables()
 void Game::loadItems()
 {
 	availableItems = io::readItemsFile();
-
-	for (auto i : availableItems)
-	{
-		io::puts(i->getName());
-	}
 }

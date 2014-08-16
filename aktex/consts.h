@@ -11,6 +11,7 @@ namespace consts
 {
 	// maps string to direction enum
 	const HashMap<string, Direction> directionsMap{
+			{ "center", Direction::C }, // default place
 			{ "north", Direction::N },
 			{ "northeast", Direction::NE },
 			{ "east", Direction::E },

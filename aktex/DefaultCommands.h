@@ -20,6 +20,8 @@ public:
 	void inventory(string secondary);
 	void inventory();
 
+	void attack();
+
 	bool exists(string move);
 
 	void call(Vec<string> params);

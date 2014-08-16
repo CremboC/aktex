@@ -65,7 +65,7 @@ void io::printItems(Vec<Item *> items)
 
 Vec<Item *> io::readItemsFile()
 {
-	std::ifstream infile("../wep.dat");
+	std::ifstream infile("../itm.dat");
 
 	Vec<Item *> items;
 
@@ -77,11 +77,8 @@ Vec<Item *> io::readItemsFile()
 	{
 		std::istringstream iss(line);
 
-		if (name == "#")
-			continue;
-
 		if (!(iss >> name >> dmg >> type >> speed)) 
-			break;
+			continue;
 
 		ItemType itemType = static_cast<ItemType>(type);
 		ItemSpeed itemSpeed = static_cast<ItemSpeed>(speed);

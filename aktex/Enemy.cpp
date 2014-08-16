@@ -2,6 +2,8 @@
 #include "Enemy.h"
 
 #include "Utils.h"
+#include "io.h"
+#include "State.h"
 
 Enemy::Enemy()
 {}
@@ -13,7 +15,17 @@ Enemy::~Enemy()
 {}
 
 void Enemy::action()
-{}
+{
+	GameState s = State::getInstance().getCurrentState();
+	
+	if (s == GameState::PLAYING)
+	{
+		io::puts("Encountered " + name + "!");
+		io::puts(name + " has " + std::to_string(hp) + " and deals " + std::to_string(damage));
+	}
+
+	State::getInstance().setState(GameState::FIGHTING);
+}
 
 string Enemy::realType()
 {

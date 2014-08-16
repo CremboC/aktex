@@ -27,7 +27,7 @@ string Entity::getName()
 	return name;
 }
 
-float Entity::getDamage()
+int Entity::getDamage()
 {
 	return damage;
 }

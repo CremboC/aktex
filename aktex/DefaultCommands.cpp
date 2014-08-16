@@ -6,7 +6,7 @@
 #include "Item.h"
 #include "Player.h"
 
-#include "io.h"
+using consts::directionsMap;
 
 DefaultCommands::DefaultCommands()
 {
@@ -17,7 +17,9 @@ DefaultCommands::~DefaultCommands()
 {}
 
 void DefaultCommands::go(string direction)
-{}
+{
+	State::getInstance().getPlayer()->setPosition(directionsMap.at(direction));
+}
 
 void DefaultCommands::inventory()
 {
@@ -28,12 +30,19 @@ void DefaultCommands::inventory()
 
 void DefaultCommands::inventory(string secondary)
 {
-	io::puts("secondary: " + secondary);
+	// io::puts("secondary: " + secondary);
 }
 
 void DefaultCommands::inventory(string secondary, string fin)
 {
-	io::puts("secondary: " + secondary + " fin: " + fin);
+	// io::puts("secondary: " + secondary + " fin: " + fin);
+}
+
+void DefaultCommands::attack()
+{
+	Player *p = State::getInstance().getPlayer();
+
+	int dmg = p->getDamage();
 }
 
 bool DefaultCommands::exists(string move)

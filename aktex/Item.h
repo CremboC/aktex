@@ -9,7 +9,8 @@ class Item
 {
 private:
 	string name;
-	int damage;
+	// can be damage or defence
+	int stat;
 
 	ItemType type;
 	ItemSpeed speed;
@@ -19,7 +20,7 @@ public:
 	Item(string name, int damage, ItemType type, ItemSpeed speed);
 	~Item();
 
-	int getDamage() const { return damage; }
+	int getStat() const { return stat; }
 
 	string getName() const { return name; }
 

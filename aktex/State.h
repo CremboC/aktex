@@ -30,7 +30,7 @@ private:
 
 public:
 
-	static State& getInstance()
+	static State &getInstance()
 	{
 		static State instance; // Guaranteed to be destroyed.
 		// Instantiated on first use.
@@ -47,6 +47,5 @@ public:
 	void setScreen(Screen *screen);
 
 	void registerSpawnable(Spawnable *spawnable);
-
 	void registerSpawnables(Vec<Spawnable *> spawnable);
 };

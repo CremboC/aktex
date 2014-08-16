@@ -7,11 +7,13 @@ namespace enums
 		RUNNING,
 		PLAYING,
 		PAUSED,
+		FIGHTING,
 		ENDED
 	};
 
 	enum class Direction
 	{
+		C, // centre
 		N,
 		NE,
 		E,

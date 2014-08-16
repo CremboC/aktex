@@ -13,10 +13,11 @@ public:
 
 	int getHp();
 	string getName();
-	float getDamage();
+	int getDamage();
 
-private:
+protected:
 	int hp = 0;
 	string name;
-	float damage = 0;
+	int damage = 0;
+	int defence = 0;
 };

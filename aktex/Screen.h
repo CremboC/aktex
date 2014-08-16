@@ -49,4 +49,6 @@ public:
 
 	void defineMoveBehaviour(string move, Func<void> func);
 	void doMove(string move);
+
+	void act();
 };

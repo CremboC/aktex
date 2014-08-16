@@ -29,21 +29,44 @@ Screen::Screen(string name, string text, Vec<string> allowedMoves, EnemyProperti
 	generateSpawnables();
 
 	// here for debug m8s
-	for (auto it = spawnableLocations.begin(); it != spawnableLocations.end(); ++it)
-	{
-		Direction d = it->first;
-		Spawnable *s = it->second;
+	//for (auto it = spawnableLocations.begin(); it != spawnableLocations.end(); ++it)
+	//{
+	//	Direction d = it->first;
+	//	Spawnable *s = it->second;
 
-		io::puts("type: " + s->realType());
-	}
+	//	io::puts("type: " + s->realType());
+	//}
 }
 
 Screen::~Screen()
 {}
 
-void Screen::putSpawnable(Direction d, Spawnable *s)
+void Screen::act()
 {
-	spawnableLocations[d] = s;
+	Player *p = State::getInstance().getPlayer();
+
+	//if (!this->initialTextShown())
+		
+
+	if (p->getPosition() == Direction::C)
+	{
+		io::puts(getText());
+	}
+	else
+	{
+		Spawnable *s = spawnableLocations[p->getPosition()];
+
+		if (s != nullptr)
+		{
+			s->action();
+		}
+		else
+		{
+			io::puts("Nothing here...");
+		}
+
+		
+	}
 }
 
 void Screen::generateSpawnables()
@@ -85,6 +108,11 @@ void Screen::generateSpawnables()
 			putSpawnable(dir, sp);
 		}
 	}
+}
+
+void Screen::putSpawnable(Direction d, Spawnable *s)
+{
+	spawnableLocations[d] = s;
 }
 
 string Screen::getText()
