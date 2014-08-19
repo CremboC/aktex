@@ -33,15 +33,6 @@ Screen::Screen(string name, string text, Vec<string> allowedMoves, EnemyProperti
 	{
 		generateSpawnables();
 	}
-
-	// here for debug m8s
-	for (auto sp : spawnableLocations)
-	{
-		Direction d = sp.first;
-		Spawnable *s = sp.second;
-
-		io::puts("type: " + s->realType());
-	}
 }
 
 Screen::~Screen()
@@ -57,7 +48,7 @@ Screen::~Screen()
 
 void Screen::act()
 {
-	Player *p = State::getInstance().getPlayer();
+	Player *p = State::inst().getPlayer();
 
 	if (p->getPosition() == Direction::C)
 	{
@@ -86,9 +77,8 @@ void Screen::act()
 			{
 				io::print(loc + ", ");
 			}
+			io::puts();
 		}
-
-		io::puts();
 	}
 	else
 	{
@@ -110,7 +100,7 @@ void Screen::act()
 void Screen::generateSpawnables()
 {
 	// get all the available, registered spawnables
-	Vec<Spawnable *> spawnables = State::getInstance().getSpawnables();
+	Vec<Spawnable *> spawnables = State::inst().getSpawnables();
 
 	// initialise spawnables
 	for (auto m : directionsMap)
@@ -126,7 +116,7 @@ void Screen::generateSpawnables()
 		float lr = Utils::random(0.0f, 1.0f);
 
 		// using the ratio, decide whether to put something into this location
-		if (lr > MAX_SPAWN_RATIO - (State::getInstance().getRoomNumber() * SPAWN_RATIO_CHNG))
+		if (lr > MAX_SPAWN_RATIO - (State::inst().getRoomNumber() * SPAWN_RATIO_CHNG))
 		{
 			// generate a random int which will pick one of the spawnables
 			Spawnable *sp = nullptr;

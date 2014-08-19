@@ -15,19 +15,15 @@ LootBox::~LootBox()
 
 void LootBox::action()
 {
-	static Item *item = generateItem();
 
 	if (open)
 	{
 		io::puts("This box is open, you probably want to go back now using 'go center'..");
-		io::puts("you found here the following: ");
-
-		io::puts(item->getName()
-			+ " with stat of "
-			+ std::to_string(item->getStat()));
 
 		return;
 	}
+
+	Item *item = generateItem();
 
 	io::puts(
 		"You have found a loot box! "
@@ -39,7 +35,7 @@ void LootBox::action()
 		+ std::to_string(item->getStat()) 
 		+ ", it is now in your inventory");
 
-	Player *p = State::getInstance().getPlayer();
+	Player *p = State::inst().getPlayer();
 
 	p->getInventory()->putItem(item);
 	open = true;
@@ -52,7 +48,7 @@ string LootBox::realType()
 
 Item *LootBox::generateItem()
 {
-	Vec<Item *> items = State::getInstance().getItems();
+	Vec<Item *> items = State::inst().getItems();
 
 	unsigned short randNumber = Utils::random(0, items.size() - 1);
 

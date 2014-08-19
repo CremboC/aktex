@@ -25,7 +25,7 @@ Game::Game()
 
 	availableScreens["main"] = screens->main();
 
-	State::getInstance().setScreen(availableScreens["main"]);
+	State::inst().setScreen(availableScreens["main"]);
 
 	start();
 }
@@ -40,10 +40,12 @@ void Game::start()
 	{
 		screen()->act();
 
-		string inp = io::multiInput();
-		Vec<string> splitInp = Utils::split(inp, ' ');
-
 		io::puts();
+		io::print("-- ");
+		string inp = io::multiInput();
+		io::puts();
+
+		Vec<string> splitInp = Utils::split(inp, ' ');
 
 		try
 		{
@@ -76,7 +78,7 @@ void Game::start()
 			continue;
 		}
 
-		if (State::getInstance().getCurrentState() == GameState::ENDED)
+		if (State::inst().getCurrentState() == GameState::ENDED)
 			handleExit();
 	}
 }
@@ -87,7 +89,7 @@ void Game::parseInput(string inp)
 // convenience wrapper method for this->state->getCurrentScreen()
 Screen *Game::screen()
 {
-	return State::getInstance().getCurrentScreen();
+	return State::inst().getCurrentScreen();
 }
 
 // handles what happens when the gamestate becomes ENDED
@@ -103,11 +105,11 @@ void Game::loadSpawnables()
 	Spawnable *lootBox = new LootBox;
 	Spawnable *enemy = new Enemy;
 
-	State::getInstance().registerSpawnable(lootBox);
-	State::getInstance().registerSpawnable(enemy);
+	State::inst().registerSpawnable(lootBox);
+	State::inst().registerSpawnable(enemy);
 }
 
 void Game::loadItems()
 {
-	State::getInstance().registerItems(io::readItemsFile());
+	State::inst().registerItems(io::readItemsFile());
 }

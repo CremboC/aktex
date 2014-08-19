@@ -21,8 +21,15 @@ DefaultCommands::~DefaultCommands()
 
 void DefaultCommands::go(string direction)
 {
-	Player *player = State::getInstance().getPlayer();
-	Screen *scr = State::getInstance().getCurrentScreen();
+	Player *player = State::inst().getPlayer();
+	Screen *scr = State::inst().getCurrentScreen();
+	GameState state = State::inst().getCurrentState();
+
+	if (state == GameState::FIGHTING)
+	{
+		io::puts("Cannot run away from a fight in this game!");
+		return;
+	}
 
 	if (directionExists(direction))
 	{
@@ -37,14 +44,21 @@ void DefaultCommands::go(string direction)
 
 void DefaultCommands::inventory()
 {
-	Inventory *in = State::getInstance().getPlayer()->getInventory();
+	Inventory *in = State::inst().getPlayer()->getInventory();
 
-	Vec<Item *> items = in->getItems();
+	io::puts("  #  |  Name  |  Stat  |  ");
+	io::puts("--------------------------");
 
-	for (auto item : items)
+	int i = 1;
+	for (Item *item : in->getItems())
 	{
-		io::puts(item->getName());
+		io::puts(" " 
+			+ std::to_string((int) i++) + " | " 
+			+ item->getName() + " | " 
+			+ std::to_string(item->getStat()) + " | ");
+
 	}
+	io::puts("--------------------------");
 }
 
 void DefaultCommands::inventory(string secondary)
@@ -59,7 +73,7 @@ void DefaultCommands::inventory(string secondary, string fin)
 
 void DefaultCommands::attack()
 {
-	Player *p = State::getInstance().getPlayer();
+	Player *p = State::inst().getPlayer();
 
 	int dmg = p->getDamage();
 }
@@ -106,6 +120,6 @@ void DefaultCommands::call(Vec<string> params)
 
 	if (command == "exit")
 	{
-		State::getInstance().setState(GameState::ENDED);
+		State::inst().setState(GameState::ENDED);
 	}
 }

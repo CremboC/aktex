@@ -54,19 +54,18 @@ void io::puts()
 	cout << endl;
 }
 
+void io::puts(int x)
+{
+	for (int i = 0; i < x; i++)
+	{
+		cout << endl;
+	}
+}
+
 // prints a string using cout without newline at the end
 void io::print(string out)
 {
 	cout << out;
-}
-
-// prints items in a nice format
-void io::printItems(Vec<Item *> items)
-{
-	for (auto a : items)
-	{
-		//cout << a->
-	}
 }
 
 Vec<Item *> io::readItemsFile()

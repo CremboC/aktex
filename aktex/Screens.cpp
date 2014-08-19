@@ -22,8 +22,8 @@ Screen *Screens::main()
 	Screen *scr = new Screen(
 		"menu",
 		"Welcome to Aktex. The adventure action text game. \n"
-		"To start the game type in start and press enter! \n"
-		"Also try 'options' for options or 'exit' to exit the game \n",
+		"To start the game type in 'start' and press enter! \n"
+		"Also try 'options' for options or 'exit' to exit the game.",
 		{ "start", "exit", "options" },
 		nullptr,
 		true
@@ -31,8 +31,8 @@ Screen *Screens::main()
 
 	scr->defineMoveBehaviour("start", [this]
 	{
-		State::getInstance().setState(GameState::PLAYING);
-		State::getInstance().setScreen(start());
+		State::inst().setState(GameState::PLAYING);
+		State::inst().setScreen(start());
 	});
 
 	return scr;

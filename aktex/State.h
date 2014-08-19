@@ -32,7 +32,8 @@ private:
 
 public:
 
-	static State &getInstance()
+	// returns the singleton instance
+	static State &inst()
 	{
 		static State instance; // Guaranteed to be destroyed.
 		// Instantiated on first use.

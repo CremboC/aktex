@@ -35,7 +35,7 @@ Enemy::~Enemy()
 
 void Enemy::action()
 {
-	GameState s = State::getInstance().getCurrentState();
+	GameState s = State::inst().getCurrentState();
 	
 	if (s == GameState::PLAYING)
 	{
@@ -46,7 +46,7 @@ void Enemy::action()
 			+ " damage per hit");
 	}
 
-	State::getInstance().setState(GameState::FIGHTING);
+	State::inst().setState(GameState::FIGHTING);
 }
 
 string Enemy::realType()
