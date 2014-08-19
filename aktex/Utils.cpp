@@ -5,7 +5,7 @@
 #include <sstream>
 #include <random>
 #include <iostream>
-#include <time.h>
+#include <ctime>
 
 using std::stringstream;
 
@@ -20,19 +20,21 @@ Utils::~Utils()
 // generate a random number from x to y
 int Utils::random(int from, int to)
 {
-	std::default_random_engine generator(rand());
+	std::random_device rd;
+	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> distribution(from, to);
 
-	return distribution(generator);
+	return distribution(gen);
 }
 
 // generate a random float from x to y
 float Utils::random(float from, float to)
 {
-	std::default_random_engine generator(rand());
+	std::random_device rd;
+	std::mt19937 gen(rd());
 	std::uniform_real_distribution<float> distribution(from, to);
 
-	return distribution(generator);
+	return distribution(gen);
 }
 
 Vec<string> Utils::split(const string &s, char delim)

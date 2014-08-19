@@ -70,14 +70,19 @@ void Screen::act()
 			if (s.second != nullptr)
 			{
 				string direction = reverseDirectionLookup(s.first);
-				nonEmptyLocations.push_back(direction);
+
+				if (!visitedLocations[s.first])
+				{
+					nonEmptyLocations.push_back(direction);
+				}
+				
 			}
 		}
 
 		if (nonEmptyLocations.size() > 0)
 		{
 			io::print("You see something at ");
-			for (auto loc : nonEmptyLocations)
+			for (string loc : nonEmptyLocations)
 			{
 				io::print(loc + ", ");
 			}
@@ -92,6 +97,7 @@ void Screen::act()
 		if (s != nullptr)
 		{
 			s->action();
+			visitedLocations[p->getPosition()] = true;
 		}
 		
 		if (s == nullptr)
@@ -155,6 +161,7 @@ void Screen::generateSpawnables()
 
 void Screen::putSpawnable(Direction d, Spawnable *s)
 {
+	visitedLocations[d] = false;
 	spawnableLocations[d] = s;
 }
 

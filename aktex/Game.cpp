@@ -6,6 +6,7 @@
 
 #include "io.h"
 #include "Utils.h"
+#include <stdexcept>
 
 using std::string;
 using std::pair;
@@ -41,17 +42,18 @@ void Game::start()
 
 		string inp = io::multiInput();
 		Vec<string> splitInp = Utils::split(inp, ' ');
+
 		io::puts();
 
 		try
 		{
-			screen()->doMove(splitInp[0]);
+			screen()->doMove(splitInp.at(0));
 		}
 		catch (NonOverriddenMoveException *e)
 		{
 			try
 			{
-				if (!cmds->exists(splitInp[0]))
+				if (!cmds->exists(splitInp.at(0)))
 					throw new IllegalMoveException("");
 
 				cmds->call(splitInp);
@@ -68,6 +70,10 @@ void Game::start()
 
 				io::puts();
 			}
+		}
+		catch (std::out_of_range e)
+		{
+			continue;
 		}
 
 		if (State::getInstance().getCurrentState() == GameState::ENDED)

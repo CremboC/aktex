@@ -15,9 +15,16 @@ LootBox::~LootBox()
 
 void LootBox::action()
 {
+	static Item *item = generateItem();
+
 	if (open)
 	{
 		io::puts("This box is open, you probably want to go back now using 'go center'..");
+		io::puts("you found here the following: ");
+
+		io::puts(item->getName()
+			+ " with stat of "
+			+ std::to_string(item->getStat()));
 
 		return;
 	}
@@ -26,8 +33,6 @@ void LootBox::action()
 		"You have found a loot box! "
 		"It contains the following: "
 		);
-
-	Item *item = generateItem();
 
 	io::puts(item->getName() 
 		+ " with stat of " 

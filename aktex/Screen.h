@@ -25,6 +25,7 @@ private:
 	EnemyProperties *enemyProperties;
 
 	HashMap<Direction, Spawnable *> spawnableLocations;
+	HashMap<Direction, bool> visitedLocations;
 
 	bool mInitialTextShown;
 
