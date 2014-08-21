@@ -36,9 +36,15 @@ Game::~Game()
 // contains main loop
 void Game::start()
 {
+	Message *m = State::inst().getMessage();
+
 	while (true)
 	{
 		screen()->act();
+
+		string response = m->get();
+
+		io::print(response);
 
 		io::puts();
 		io::print("-- ");
@@ -47,12 +53,16 @@ void Game::start()
 
 		Vec<string> splitInp = Utils::split(inp, ' ');
 
+		// try doing the move, might be overridden the by screen
+		// also catches if user inputs nothing
 		try
 		{
 			screen()->doMove(splitInp.at(0));
 		}
 		catch (NonOverriddenMoveException *e)
 		{
+			// not overridden, then might be a default command?
+			// if not, prints out available commands
 			try
 			{
 				if (!cmds->exists(splitInp.at(0)))
@@ -63,9 +73,10 @@ void Game::start()
 			catch (IllegalMoveException *e)
 			{
 
+				// TODO: print out default moves as well
 				io::print("Move does not exist, try one of the possible commands: ");
 
-				for (auto a : screen()->getAllowedMoves())
+				for (string a : screen()->getAllowedMoves())
 				{
 					io::print(a + " ");
 				}
@@ -75,8 +86,10 @@ void Game::start()
 		}
 		catch (std::out_of_range e)
 		{
-			continue;
+			// just continue, get next input
 		}
+
+		m->flush();
 
 		if (State::inst().getCurrentState() == GameState::ENDED)
 			handleExit();
@@ -96,6 +109,7 @@ Screen *Game::screen()
 void Game::handleExit()
 {
 	// TODO: add more stuff that gets done, save game state maybe?
+	// confirm exit?
 	std::exit(1);
 }
 

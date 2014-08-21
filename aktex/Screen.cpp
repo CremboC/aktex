@@ -42,17 +42,19 @@ Screen::~Screen()
 		if (sp.second != nullptr)
 		{
 			delete sp.second;
-		}	
+		}
 	}
 }
 
 void Screen::act()
 {
 	Player *p = State::inst().getPlayer();
+	Message *m = State::inst().getMessage();
 
 	if (p->getPosition() == Direction::C)
 	{
-		io::puts(getText());
+		//io::puts(getText());
+		m->append(getText());
 
 		Vec<string> nonEmptyLocations;
 
@@ -66,18 +68,22 @@ void Screen::act()
 				{
 					nonEmptyLocations.push_back(direction);
 				}
-				
 			}
 		}
 
 		if (nonEmptyLocations.size() > 0)
 		{
-			io::print("You see something at ");
+			string b = "You see something at ";
+			//io::print("You see something at ");
 			for (string loc : nonEmptyLocations)
 			{
-				io::print(loc + ", ");
+				//io::print(loc + ", ");
+				b += loc + ", ";
 			}
-			io::puts();
+			//io::puts();
+			b += "\n";
+
+			m->append(b);
 		}
 	}
 	else
@@ -89,7 +95,7 @@ void Screen::act()
 			s->action();
 			visitedLocations[p->getPosition()] = true;
 		}
-		
+
 		if (s == nullptr)
 		{
 			p->setPosition(Direction::C);

@@ -15,27 +15,34 @@ LootBox::~LootBox()
 
 void LootBox::action()
 {
+	Message *m = State::inst().getMessage();
+	Player *p = State::inst().getPlayer();
 
 	if (open)
 	{
-		io::puts("This box is open, you probably want to go back now using 'go center'..");
+		m->append("This box is open, you probably want to go back now using 'go center'..");
+		//io::puts();
 
 		return;
 	}
 
 	Item *item = generateItem();
 
-	io::puts(
+	m->append("You have found a loot box! "
+		"It contains the following: ");
+	/*io::puts(
 		"You have found a loot box! "
 		"It contains the following: "
-		);
-
-	io::puts(item->getName() 
-		+ " with stat of " 
-		+ std::to_string(item->getStat()) 
+		);*/
+	m->append(item->getName()
+		+ " with stat of "
+		+ std::to_string(item->getStat())
 		+ ", it is now in your inventory");
 
-	Player *p = State::inst().getPlayer();
+	/*io::puts(item->getName()
+		+ " with stat of "
+		+ std::to_string(item->getStat())
+		+ ", it is now in your inventory");*/
 
 	p->getInventory()->putItem(item);
 	open = true;

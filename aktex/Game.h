@@ -22,6 +22,8 @@ private:
 
 	DefaultCommands *cmds;
 
+	bool runTutorial;
+
 	// convenience wrapper method for this->state->getCurrentScreen()
 	Screen *screen();
 

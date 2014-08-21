@@ -13,7 +13,7 @@ using consts::directionExists;
 
 DefaultCommands::DefaultCommands()
 {
-	defaultCommands = { "go", "inventory", "exit" };
+	defaultCommands = { "go", "inventory", "attack", "exit" };
 }
 
 DefaultCommands::~DefaultCommands()
@@ -24,10 +24,12 @@ void DefaultCommands::go(string direction)
 	Player *player = State::inst().getPlayer();
 	Screen *scr = State::inst().getCurrentScreen();
 	GameState state = State::inst().getCurrentState();
+	Message *m = State::inst().getMessage();
 
 	if (state == GameState::FIGHTING)
 	{
-		io::puts("Cannot run away from a fight in this game!");
+		m->append("Cannot run away from a fight in this game!");
+		//io::puts("Cannot run away from a fight in this game!");
 		return;
 	}
 
@@ -52,11 +54,10 @@ void DefaultCommands::inventory()
 	int i = 1;
 	for (Item *item : in->getItems())
 	{
-		io::puts(" " 
-			+ std::to_string((int) i++) + " | " 
-			+ item->getName() + " | " 
+		io::puts(" "
+			+ std::to_string((int) i++) + " | "
+			+ item->getName() + " | "
 			+ std::to_string(item->getStat()) + " | ");
-
 	}
 	io::puts("--------------------------");
 }
@@ -116,6 +117,11 @@ void DefaultCommands::call(Vec<string> params)
 			inventory();
 			break;
 		}
+	}
+
+	if (command == "attack")
+	{
+		attack();
 	}
 
 	if (command == "exit")

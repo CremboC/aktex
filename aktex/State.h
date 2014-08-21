@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Screen.h"
 #include "Item.h"
+#include "Enemy.h"
+#include "Message.h"
 
 using enums::GameState;
 
@@ -14,6 +16,7 @@ class State
 private:
 	Player *player;
 	Screen *currentScreen;
+	Message *message;
 
 	int roomNumber = 0;
 	GameState currentState;
@@ -21,10 +24,12 @@ private:
 	Vec<Spawnable *> spawnables;
 	Vec<Item *> items;
 
+	Enemy *currentEnemy;
 	State()
 	{
 		this->player = new Player;
 		this->currentState = GameState::RUNNING;
+		this->message = new Message;
 	}
 
 	State(State const&);
@@ -42,6 +47,10 @@ public:
 
 	Player *getPlayer();
 	Screen *getCurrentScreen();
+	Message *getMessage();
+
+	Enemy *getCurrentEnemy() const;
+	void setCurrentEnemy(Enemy *e);
 
 	int getRoomNumber();
 

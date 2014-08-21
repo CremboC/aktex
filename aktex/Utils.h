@@ -16,5 +16,7 @@ public:
 	// generate a random float from x to y
 	static float random(float from, float to);
 
+	static string concat(Vec<string> ss);
+
 	static Vec<string> split(const string &s, char delim);
 };

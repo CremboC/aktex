@@ -45,7 +45,7 @@ void State::registerSpawnable(Spawnable *spawnable)
 
 void State::registerSpawnables(Vec<Spawnable *> spawnablesToRegister)
 {
-	for (auto i : spawnablesToRegister)
+	for (Spawnable *i : spawnablesToRegister)
 	{
 		spawnables.push_back(i);
 	}
@@ -53,7 +53,7 @@ void State::registerSpawnables(Vec<Spawnable *> spawnablesToRegister)
 
 void State::registerItems(Vec<Item *> itemsToRegister)
 {
-	for (auto i : itemsToRegister)
+	for (Item *i : itemsToRegister)
 	{
 		items.push_back(i);
 	}
@@ -62,4 +62,19 @@ void State::registerItems(Vec<Item *> itemsToRegister)
 Vec<Item *> State::getItems()
 {
 	return items;
+}
+
+Enemy *State::getCurrentEnemy() const
+{
+	return currentEnemy;
+}
+
+void State::setCurrentEnemy(Enemy *e)
+{
+	this->currentEnemy = e;
+}
+
+Message *State::getMessage()
+{
+	return message;
 }

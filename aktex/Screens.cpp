@@ -24,7 +24,7 @@ Screen *Screens::main()
 		"Welcome to Aktex. The adventure action text game. \n"
 		"To start the game type in 'start' and press enter! \n"
 		"Also try 'options' for options or 'exit' to exit the game.",
-		{ "start", "exit", "options" },
+		{ "start", "options" },
 		nullptr,
 		true
 		);
@@ -41,8 +41,8 @@ Screen *Screens::main()
 // the first game screen
 Screen *Screens::start()
 {
-	vector<Item *> items = { 
-		new Item("first", 10, ItemType::WEAPON_SWORD, ItemSpeed::NORMAL) 
+	vector<Item *> items = {
+		new Item("first", 10, ItemType::WEAPON_SWORD, ItemSpeed::NORMAL)
 	};
 
 	EnemyProperties *eProps = new EnemyProperties;
@@ -63,7 +63,6 @@ Screen *Screens::start()
 
 	return scr;
 }
-
 
 Screen *Screens::generateRoom()
 {

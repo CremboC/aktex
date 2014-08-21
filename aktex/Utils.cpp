@@ -52,3 +52,14 @@ Vec<string> Utils::split(const string &s, char delim)
 
 	return elems;
 }
+
+string Utils::concat(Vec<string> ss)
+{
+	string concated;
+	for (string s : ss)
+	{
+		concated += s + "\n";
+	}
+
+	return concated;
+}

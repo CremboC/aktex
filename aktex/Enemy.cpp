@@ -6,9 +6,7 @@
 #include "State.h"
 
 Enemy::Enemy()
-{
-
-}
+{}
 
 Enemy::Enemy(EnemyProperties *props)
 {
@@ -36,12 +34,19 @@ Enemy::~Enemy()
 void Enemy::action()
 {
 	GameState s = State::inst().getCurrentState();
-	
+	Message *m = State::inst().getMessage();
+
 	if (s == GameState::PLAYING)
 	{
-		io::puts("Encountered " + name + "!");
-		io::puts(name + " has " + std::to_string(hp) 
-			+ "hp and deals " 
+		m->append("Encountered " + name + "!");
+		//io::puts("Encountered " + name + "!");
+		//io::puts(name + " has " + std::to_string(hp)
+		//	+ "hp and deals "
+		//	+ std::to_string(damage)
+		//	+ " damage per hit");
+
+		m->append(name + " has " + std::to_string(hp)
+			+ "hp and deals "
 			+ std::to_string(damage)
 			+ " damage per hit");
 	}
