@@ -41,3 +41,8 @@ void Entity::setDefence(int defence)
 {
 	this->defence = defence;
 }
+
+int Entity::getDefence()
+{
+	return defence;
+}

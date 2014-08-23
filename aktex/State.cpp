@@ -2,6 +2,13 @@
 
 #include "State.h"
 
+State::State()
+{
+	this->player = new Player;
+	this->currentState = GameState::RUNNING;
+	this->message = new Message;
+}
+
 Player *State::getPlayer()
 {
 	return player;

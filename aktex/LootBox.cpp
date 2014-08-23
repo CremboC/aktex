@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "LootBox.h"
 
-#include "io.h"
 #include "Utils.h"
 #include "State.h"
 #include "Item.h"
@@ -21,7 +20,6 @@ void LootBox::action()
 	if (open)
 	{
 		m->append("This box is open, you probably want to go back now using 'go center'..");
-		//io::puts();
 
 		return;
 	}
@@ -30,19 +28,11 @@ void LootBox::action()
 
 	m->append("You have found a loot box! "
 		"It contains the following: ");
-	/*io::puts(
-		"You have found a loot box! "
-		"It contains the following: "
-		);*/
+
 	m->append(item->getName()
 		+ " with stat of "
 		+ std::to_string(item->getStat())
 		+ ", it is now in your inventory");
-
-	/*io::puts(item->getName()
-		+ " with stat of "
-		+ std::to_string(item->getStat())
-		+ ", it is now in your inventory");*/
 
 	p->getInventory()->putItem(item);
 	open = true;

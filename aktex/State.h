@@ -25,12 +25,7 @@ private:
 	Vec<Item *> items;
 
 	Enemy *currentEnemy;
-	State()
-	{
-		this->player = new Player;
-		this->currentState = GameState::RUNNING;
-		this->message = new Message;
-	}
+	State();
 
 	State(State const&);
 	void operator=(State const&);

@@ -35,9 +35,14 @@ namespace enums
 	enum class ItemType
 	{
 		ARMOR = 1,
-		WEAPON_DAGGER = 2,
-		WEAPON_SWORD = 4,
-		WEAPON_AXE = 8,
-		WEAPON_MACE = 16
+		WEAPON = 2,
+	};
+
+	enum class ItemSubType
+	{
+		WEAPON_DAGGER = 1,
+		WEAPON_SWORD = 2,
+		WEAPON_AXE = 4,
+		WEAPON_MACE = 8
 	};
 }

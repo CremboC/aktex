@@ -8,7 +8,6 @@
 #include "Utils.h"
 #include "Enemy.h"
 
-#include "io.h"
 #include "LootBox.h"
 
 using exceptions::NonOverriddenMoveException;
@@ -53,7 +52,6 @@ void Screen::act()
 
 	if (p->getPosition() == Direction::C)
 	{
-		//io::puts(getText());
 		m->append(getText());
 
 		Vec<string> nonEmptyLocations;
@@ -74,13 +72,10 @@ void Screen::act()
 		if (nonEmptyLocations.size() > 0)
 		{
 			string b = "You see something at ";
-			//io::print("You see something at ");
 			for (string loc : nonEmptyLocations)
 			{
-				//io::print(loc + ", ");
 				b += loc + ", ";
 			}
-			//io::puts();
 			b += "\n";
 
 			m->append(b);
@@ -142,7 +137,7 @@ void Screen::generateSpawnables()
 			// while constructing the Screen
 			if (spawnables[randNumber]->realType() == "Enemy")
 			{
-				sp = new Enemy(enemyProperties);
+				sp = new Enemy(*enemyProperties);
 			}
 
 			if (spawnables[randNumber]->realType() == "LootBox")

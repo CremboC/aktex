@@ -17,6 +17,7 @@ public:
 	int getHp();
 	string getName();
 	int getDamage();
+	int getDefence();
 
 protected:
 	int hp = 0;

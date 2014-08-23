@@ -1,4 +1,4 @@
-# name dmg/def type(armour = 1, dagger = 2, sword = 4, axe = 8, mace = 16) speed(na = 0, fast = 1, normal = 2, slow = 4)
-Sword 10 4 2
-Armour 5 1 0
-Dagger 7 2 1
+# name dmg/def type(armour = 1, weapon = 2) subtype(dagger = 1, sword = 2, axe = 4, mace = 8) speed(na = 0, fast = 1, normal = 2, slow = 4)
+Sword 10 2 2 2
+Armour 5 1 0 0
+Dagger 7 2 1 1

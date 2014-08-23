@@ -16,14 +16,13 @@ private:
 	float likelyhood;
 	Vec<Item *> items;
 
+	bool defeated = false;
+
 public:
 	Enemy();
-	Enemy(EnemyProperties *props);
+	Enemy(EnemyProperties &props);
 	~Enemy();
 
 	void action();
 	string realType();
-
-	void setNumOfDrops(int n);
-	void setLikelyhood(float l);
 };

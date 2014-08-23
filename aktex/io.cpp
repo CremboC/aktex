@@ -10,6 +10,10 @@ using std::cin;
 
 using std::endl;
 
+using enums::ItemSpeed;
+using enums::ItemType;
+using enums::ItemSubType;
+
 io::io()
 {}
 
@@ -75,21 +79,21 @@ Vec<Item *> io::readItemsFile()
 	Vec<Item *> items;
 
 	string name;
-	int dmg, type, speed;
+	int dmg, type, speed, subtype;
 
 	string line;
 	while (std::getline(infile, line))
 	{
 		std::istringstream iss(line);
 
-		if (!(iss >> name >> dmg >> type >> speed)) 
+		if (!(iss >> name >> dmg >> type >> subtype >> speed))
 			continue;
 
 		ItemType itemType = static_cast<ItemType>(type);
+		ItemSubType itemSubType = static_cast<ItemSubType>(subtype);
 		ItemSpeed itemSpeed = static_cast<ItemSpeed>(speed);
 
-		items.push_back(new Item(name, dmg, itemType, itemSpeed));
-
+		items.push_back(new Item(name, dmg, itemType, itemSubType, itemSpeed));
 	}
 
 	return items;

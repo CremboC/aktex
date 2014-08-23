@@ -38,20 +38,12 @@ void Game::start()
 {
 	Message *m = State::inst().getMessage();
 
+	string inp = "";
 	while (true)
 	{
-		screen()->act();
-
-		string response = m->get();
-
-		io::print(response);
-
-		io::puts();
-		io::print("-- ");
-		string inp = io::multiInput();
-		io::puts();
-
 		Vec<string> splitInp = Utils::split(inp, ' ');
+
+		bool specialCmds = false;
 
 		// try doing the move, might be overridden the by screen
 		// also catches if user inputs nothing
@@ -68,7 +60,7 @@ void Game::start()
 				if (!cmds->exists(splitInp.at(0)))
 					throw new IllegalMoveException("");
 
-				cmds->call(splitInp);
+				specialCmds = cmds->call(splitInp);
 			}
 			catch (IllegalMoveException *e)
 			{
@@ -89,10 +81,22 @@ void Game::start()
 			// just continue, get next input
 		}
 
-		m->flush();
-
 		if (State::inst().getCurrentState() == GameState::ENDED)
 			handleExit();
+
+		if (!specialCmds)
+		{
+			screen()->act();
+		}
+
+		io::print(m->get());
+
+		io::puts();
+		io::print("-- ");
+		inp = io::multiInput();
+		io::puts();
+
+		m->flush();
 	}
 }
 

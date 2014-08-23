@@ -6,14 +6,14 @@
 #include "Item.h"
 #include "Player.h"
 
-#include "io.h"
-
 using consts::directionsMap;
 using consts::directionExists;
 
+using exceptions::IllegalStateException;
+
 DefaultCommands::DefaultCommands()
 {
-	defaultCommands = { "go", "inventory", "attack", "exit" };
+	defaultCommands = { "go", "inventory", "attack", "stats", "exit" };
 }
 
 DefaultCommands::~DefaultCommands()
@@ -29,7 +29,6 @@ void DefaultCommands::go(string direction)
 	if (state == GameState::FIGHTING)
 	{
 		m->append("Cannot run away from a fight in this game!");
-		//io::puts("Cannot run away from a fight in this game!");
 		return;
 	}
 
@@ -46,42 +45,96 @@ void DefaultCommands::go(string direction)
 
 void DefaultCommands::inventory()
 {
+	Message *m = State::inst().getMessage();
 	Inventory *in = State::inst().getPlayer()->getInventory();
 
-	io::puts("  #  |  Name  |  Stat  |  ");
-	io::puts("--------------------------");
+	string inventory = "  #  |  Name  |  Stat  |  \n";
+	inventory += "--------------------------\n";
 
 	int i = 1;
 	for (Item *item : in->getItems())
 	{
-		io::puts(" "
+		inventory += " "
 			+ std::to_string((int) i++) + " | "
 			+ item->getName() + " | "
-			+ std::to_string(item->getStat()) + " | ");
+			+ std::to_string(item->getStat()) + " | \n";
 	}
-	io::puts("--------------------------");
+	inventory += "--------------------------\n";
+
+	m->append(inventory);
 }
 
 void DefaultCommands::inventory(string secondary)
-{
-	// io::puts("secondary: " + secondary);
-}
+{}
 
 void DefaultCommands::inventory(string secondary, string fin)
 {
-	// io::puts("secondary: " + secondary + " fin: " + fin);
+	Message *m = State::inst().getMessage();
+	Player *p = State::inst().getPlayer();
+	Inventory *in = p->getInventory();
+
+	if (secondary == "equip")
+	{
+		Item *toEquip = in->getItem(std::stoi(fin));
+
+		if (toEquip == nullptr)
+		{
+			throw new IllegalStateException("Item doesn't exist");
+		}
+
+		in->equip(toEquip);
+
+		switch (toEquip->getType())
+		{
+		case ItemType::ARMOR:
+			p->setDefence(p->getDefence() + toEquip->getStat());
+			break;
+
+		case ItemType::WEAPON:
+			p->setDamage(p->getDamage() + toEquip->getStat());
+			break;
+
+		default:
+			break;
+		}
+
+		return;
+	}
+
+	if (secondary == "unequip")
+	{
+
+		return;
+	}
+}
+
+void DefaultCommands::stats()
+{
+	Message *m = State::inst().getMessage();
+	Player *p = State::inst().getPlayer();
+
+	string s = "Player stats: "
+		"\nHealth  : " + std::to_string(p->getHp()) +
+		"\nDamage  : " + std::to_string(p->getDamage()) +
+		"\nDefence : " + std::to_string(p->getDefence());
+
+	m->append(s);
+
+	return;
 }
 
 void DefaultCommands::attack()
 {
 	Player *p = State::inst().getPlayer();
+	Enemy *e = State::inst().getCurrentEnemy();
 
 	int dmg = p->getDamage();
+	int enemyHp = e->getHp();
 }
 
 bool DefaultCommands::exists(string move)
 {
-	for (auto cmd : defaultCommands)
+	for (string cmd : defaultCommands)
 	{
 		if (cmd == move)
 			return true;
@@ -90,7 +143,8 @@ bool DefaultCommands::exists(string move)
 	return false;
 }
 
-void DefaultCommands::call(Vec<string> params)
+// returns whether a command is special - i.e. skip act?
+bool DefaultCommands::call(Vec<string> params)
 {
 	string command = params[0];
 
@@ -98,6 +152,15 @@ void DefaultCommands::call(Vec<string> params)
 	if (command == "go" && params.size() == 2)
 	{
 		go(params[1]);
+
+		return false;
+	}
+
+	if (command == "stats")
+	{
+		stats();
+
+		return true;
 	}
 
 	if (command == "inventory")
@@ -117,15 +180,23 @@ void DefaultCommands::call(Vec<string> params)
 			inventory();
 			break;
 		}
+
+		return true;
 	}
 
 	if (command == "attack")
 	{
 		attack();
+
+		return false;
 	}
 
 	if (command == "exit")
 	{
 		State::inst().setState(GameState::ENDED);
+
+		return false;
 	}
+
+	return false;
 }

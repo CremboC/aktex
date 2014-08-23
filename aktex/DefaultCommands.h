@@ -20,9 +20,12 @@ public:
 	void inventory(string secondary);
 	void inventory();
 
+	void stats();
+
 	void attack();
 
 	bool exists(string move);
 
-	void call(Vec<string> params);
+	// returns whether a command is special - i.e. skip act?
+	bool call(Vec<string> params);
 };

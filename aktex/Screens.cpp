@@ -42,7 +42,7 @@ Screen *Screens::main()
 Screen *Screens::start()
 {
 	vector<Item *> items = {
-		new Item("first", 10, ItemType::WEAPON_SWORD, ItemSpeed::NORMAL)
+		new Item("first", 10, ItemType::WEAPON, ItemSubType::WEAPON_SWORD, ItemSpeed::NORMAL)
 	};
 
 	EnemyProperties *eProps = new EnemyProperties;
